@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0226676F28C637D800A3F800 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676C28C637D800A3F800 /* Lato-Black.ttf */; };
+		0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676D28C637D800A3F800 /* Lato-Regular.ttf */; };
+		0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676E28C637D800A3F800 /* Lato-Bold.ttf */; };
 		02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8128C5E002000309AF /* AppDelegate.swift */; };
 		02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8328C5E002000309AF /* SceneDelegate.swift */; };
 		02D7CE8628C5E002000309AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8528C5E002000309AF /* ViewController.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0226676C28C637D800A3F800 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		0226676D28C637D800A3F800 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		0226676E28C637D800A3F800 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		02D7CE7E28C5E002000309AF /* Currency Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02D7CE8128C5E002000309AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02D7CE8328C5E002000309AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +43,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0226677228C637F600A3F800 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0226676C28C637D800A3F800 /* Lato-Black.ttf */,
+				0226676E28C637D800A3F800 /* Lato-Bold.ttf */,
+				0226676D28C637D800A3F800 /* Lato-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		02D7CE7528C5E002000309AF = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +79,7 @@
 				02D7CE8A28C5E003000309AF /* Assets.xcassets */,
 				02D7CE8C28C5E003000309AF /* LaunchScreen.storyboard */,
 				02D7CE8F28C5E003000309AF /* Info.plist */,
+				0226677228C637F600A3F800 /* Fonts */,
 			);
 			path = "Currency Converter";
 			sourceTree = "<group>";
@@ -125,7 +142,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0226676F28C637D800A3F800 /* Lato-Black.ttf in Resources */,
+				0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */,
 				02D7CE8E28C5E003000309AF /* LaunchScreen.storyboard in Resources */,
+				0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */,
 				02D7CE8B28C5E003000309AF /* Assets.xcassets in Resources */,
 				02D7CE8928C5E002000309AF /* Main.storyboard in Resources */,
 			);

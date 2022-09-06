@@ -23,7 +23,8 @@
                                 <rect key="frame" x="16.666666666666657" y="177.66666666666666" width="356.66666666666674" height="413.66666666666674"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Idz-vb-kIn">
-                                        <rect key="frame" x="16.666666666666657" y="16" width="323.33333333333337" height="32"/>
+                                        <rect key="frame" x="16.666666666666657" y="15.999999999999996" width="323.33333333333337" height="46.666666666666657"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
@@ -91,6 +92,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Idz-vb-kIn" firstAttribute="height" secondItem="Lyg-JH-gDK" secondAttribute="height" multiplier="44/398" id="10C-Vi-GYx"/>
                                     <constraint firstItem="8y5-84-wW6" firstAttribute="height" secondItem="Lyg-JH-gDK" secondAttribute="height" multiplier="44/398" id="4Ph-nL-cMN"/>
                                     <constraint firstItem="fiR-72-01E" firstAttribute="height" secondItem="Lyg-JH-gDK" secondAttribute="height" multiplier="44/398" id="4m6-gL-bsw"/>
                                     <constraint firstItem="i1p-sc-X9b" firstAttribute="top" secondItem="Lyg-JH-gDK" secondAttribute="top" constant="100.00000000000001" id="Daf-fS-t5K"/>
@@ -145,6 +147,20 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="H94-SY-2fF"/>
+                    <connections>
+                        <outlet property="addCurrencyButton" destination="8y5-84-wW6" id="UdT-TH-Vit"/>
+                        <outlet property="firstCurrencyButton" destination="omt-bL-BGu" id="bRM-ZL-6OP"/>
+                        <outlet property="firstCurrencyTextField" destination="tlM-Zu-vc0" id="UNc-aB-dRE"/>
+                        <outlet property="lastYearRateButton" destination="zzC-y1-UNh" id="Omb-O4-f3j"/>
+                        <outlet property="rateView" destination="Lyg-JH-gDK" id="Fne-1k-zFQ"/>
+                        <outlet property="secondCurrencyButton" destination="sGk-2W-If0" id="6hJ-s7-eDm"/>
+                        <outlet property="secondCurrencyTextField" destination="M9x-DF-sOg" id="fHu-7U-b4E"/>
+                        <outlet property="sellBuySegmentedControl" destination="Idz-vb-kIn" id="Nis-gL-1or"/>
+                        <outlet property="shareButton" destination="JKJ-RZ-HEi" id="xYh-9R-RyH"/>
+                        <outlet property="thirdCurrencyButton" destination="hUG-dJ-HDj" id="qQG-Sz-wg7"/>
+                        <outlet property="thirdCurrencyTextField" destination="nAW-gb-HiC" id="jH3-1E-TaB"/>
+                        <outlet property="updateInfoLabel" destination="5s7-4d-QdN" id="Pxk-w1-fer"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
