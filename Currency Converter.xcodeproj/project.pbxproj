@@ -10,6 +10,15 @@
 		0226676F28C637D800A3F800 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676C28C637D800A3F800 /* Lato-Black.ttf */; };
 		0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676D28C637D800A3F800 /* Lato-Regular.ttf */; };
 		0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676E28C637D800A3F800 /* Lato-Bold.ttf */; };
+		0226677428C768AA00A3F800 /* AddCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226677328C768AA00A3F800 /* AddCurrencyViewController.swift */; };
+		0226677E28C89D5200A3F800 /* historicalRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */; };
+		0226678028C89D9A00A3F800 /* latestRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677F28C89D9A00A3F800 /* latestRateAPIResponseExample.json */; };
+		0226678228C8A53100A3F800 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678128C8A53100A3F800 /* CurrencyData.swift */; };
+		0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */; };
+		0226678628C8B78F00A3F800 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0226678528C8B78F00A3F800 /* Keys.plist */; };
+		0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678728C8B85900A3F800 /* CurrencyModel.swift */; };
+		0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */; };
+		0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */; };
 		02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8128C5E002000309AF /* AppDelegate.swift */; };
 		02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8328C5E002000309AF /* SceneDelegate.swift */; };
 		02D7CE8628C5E002000309AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8528C5E002000309AF /* ViewController.swift */; };
@@ -22,6 +31,15 @@
 		0226676C28C637D800A3F800 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		0226676D28C637D800A3F800 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		0226676E28C637D800A3F800 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		0226677328C768AA00A3F800 /* AddCurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyViewController.swift; sourceTree = "<group>"; };
+		0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = historicalRateAPIResponseExample.json; sourceTree = "<group>"; };
+		0226677F28C89D9A00A3F800 /* latestRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = latestRateAPIResponseExample.json; sourceTree = "<group>"; };
+		0226678128C8A53100A3F800 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
+		0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyHTTPClient.swift; sourceTree = "<group>"; };
+		0226678528C8B78F00A3F800 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		0226678728C8B85900A3F800 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
+		0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrencyHTTPClient.swift; sourceTree = "<group>"; };
+		0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientFactory.swift; sourceTree = "<group>"; };
 		02D7CE7E28C5E002000309AF /* Currency Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02D7CE8128C5E002000309AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02D7CE8328C5E002000309AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +71,55 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		0226677928C89C9A00A3F800 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				02D7CE8528C5E002000309AF /* ViewController.swift */,
+				0226677328C768AA00A3F800 /* AddCurrencyViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0226677A28C89CBA00A3F800 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				02D7CE8728C5E002000309AF /* Main.storyboard */,
+				02D7CE8C28C5E003000309AF /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0226677B28C89CC800A3F800 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */,
+				0226678728C8B85900A3F800 /* CurrencyModel.swift */,
+				0226678128C8A53100A3F800 /* CurrencyData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0226677C28C89CF200A3F800 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				02D7CE8A28C5E003000309AF /* Assets.xcassets */,
+				0226677228C637F600A3F800 /* Fonts */,
+				0226677F28C89D9A00A3F800 /* latestRateAPIResponseExample.json */,
+				0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */,
+				0226678528C8B78F00A3F800 /* Keys.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0226678928C8BCB900A3F800 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */,
+				0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		02D7CE7528C5E002000309AF = {
 			isa = PBXGroup;
 			children = (
@@ -74,12 +141,12 @@
 			children = (
 				02D7CE8128C5E002000309AF /* AppDelegate.swift */,
 				02D7CE8328C5E002000309AF /* SceneDelegate.swift */,
-				02D7CE8528C5E002000309AF /* ViewController.swift */,
-				02D7CE8728C5E002000309AF /* Main.storyboard */,
-				02D7CE8A28C5E003000309AF /* Assets.xcassets */,
-				02D7CE8C28C5E003000309AF /* LaunchScreen.storyboard */,
+				0226677B28C89CC800A3F800 /* Models */,
+				0226677A28C89CBA00A3F800 /* Views */,
+				0226677928C89C9A00A3F800 /* Controllers */,
+				0226677C28C89CF200A3F800 /* Supporting Files */,
+				0226678928C8BCB900A3F800 /* Mocks */,
 				02D7CE8F28C5E003000309AF /* Info.plist */,
-				0226677228C637F600A3F800 /* Fonts */,
 			);
 			path = "Currency Converter";
 			sourceTree = "<group>";
@@ -146,6 +213,9 @@
 				0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */,
 				02D7CE8E28C5E003000309AF /* LaunchScreen.storyboard in Resources */,
 				0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */,
+				0226677E28C89D5200A3F800 /* historicalRateAPIResponseExample.json in Resources */,
+				0226678028C89D9A00A3F800 /* latestRateAPIResponseExample.json in Resources */,
+				0226678628C8B78F00A3F800 /* Keys.plist in Resources */,
 				02D7CE8B28C5E003000309AF /* Assets.xcassets in Resources */,
 				02D7CE8928C5E002000309AF /* Main.storyboard in Resources */,
 			);
@@ -158,8 +228,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */,
 				02D7CE8628C5E002000309AF /* ViewController.swift in Sources */,
+				0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */,
+				0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */,
+				0226677428C768AA00A3F800 /* AddCurrencyViewController.swift in Sources */,
 				02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */,
+				0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */,
+				0226678228C8A53100A3F800 /* CurrencyData.swift in Sources */,
 				02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
