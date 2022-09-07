@@ -27,7 +27,6 @@ class MockCurrencyHTTPClient: CurrencyHTTPClientProtocol {
             let decodedData = try decoder.decode(CurrencyData.self, from: json.data(using: .utf8)!)
             let currencyModel = CurrencyModel(currencyData: decodedData)
             completionHandler(Result.success(currencyModel))
-            print(currencyModel.rates.allProperties())
         } catch {
             completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
         }

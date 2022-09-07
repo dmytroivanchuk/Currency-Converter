@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     @IBAction func addCurrencyButtonPressed(_ sender: UIButton) {
         let addCurrencyViewController = AddCurrencyViewController()
         addCurrencyViewController.sections = sections
+        addCurrencyViewController.sections.insert(Section(letter: "Popular", names: ["USD - US Dollar", "EUR - Euro", "UAH - Hryvnia"]), at: 0)
         let navController = UINavigationController(rootViewController: addCurrencyViewController) // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.present(navController, animated:true, completion: nil)
     }

@@ -36,9 +36,19 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
         }
     }
     
+    private var url: URL {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.apilayer.com"
+        components.path = "/exchangerates_data/latest"
+        components.queryItems = [
+            URLQueryItem(name: "base", value: "USD")
+        ]
+        return components.url!
+    }
+    
     func fetchRate(completion completionHandler: @escaping (Result<CurrencyModel, CurrencyHTTPClientError>) -> Void) {
-        let url = "https://api.apilayer.com/exchangerates_data/latest?symbols={symbols}&base={USD}"
-        var request = URLRequest(url: URL(string: url)!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: url, timeoutInterval: Double.infinity)
         request.httpMethod = "GET"
         request.addValue(apiKey, forHTTPHeaderField: "apikey")
 
