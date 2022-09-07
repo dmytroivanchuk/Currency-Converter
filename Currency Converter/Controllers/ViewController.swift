@@ -22,6 +22,16 @@ class ViewController: UIViewController {
     @IBOutlet var updateInfoLabel: UILabel!
     @IBOutlet var lastYearRateButton: UIButton!
     
+    let currencyHTTPClient = MockCurrencyHTTPClient()
+    var sections = [Section]()
+    
+    @IBAction func addCurrencyButtonPressed(_ sender: UIButton) {
+        let addCurrencyViewController = AddCurrencyViewController()
+        addCurrencyViewController.sections = sections
+        let navController = UINavigationController(rootViewController: addCurrencyViewController) // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.present(navController, animated:true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -41,6 +51,15 @@ class ViewController: UIViewController {
         configureShareButton()
         configureUpdateInfoLabel()
         configureLastYearRateButton()
+        
+        currencyHTTPClient.fetchRate { result in
+            switch result {
+            case .success(let currencyModel):
+                self.sections = currencyModel.sections
+            case .failure(_):
+                print("error")
+            }
+        }
     }
     
     private func configureRateView() {
