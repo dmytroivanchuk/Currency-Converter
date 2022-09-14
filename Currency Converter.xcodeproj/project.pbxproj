@@ -19,6 +19,10 @@
 		0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678728C8B85900A3F800 /* CurrencyModel.swift */; };
 		0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */; };
 		0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */; };
+		0226679128C9CEE100A3F800 /* RateCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226679028C9CEE100A3F800 /* RateCalculator.swift */; };
+		0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226679228CBAC5C00A3F800 /* MainViewController.swift */; };
+		0226679528CBB31400A3F800 /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0226679428CBB31400A3F800 /* MainScreen.storyboard */; };
+		0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */; };
 		02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8128C5E002000309AF /* AppDelegate.swift */; };
 		02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8328C5E002000309AF /* SceneDelegate.swift */; };
 		02D7CE8628C5E002000309AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8528C5E002000309AF /* ViewController.swift */; };
@@ -40,6 +44,10 @@
 		0226678728C8B85900A3F800 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrencyHTTPClient.swift; sourceTree = "<group>"; };
 		0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientFactory.swift; sourceTree = "<group>"; };
+		0226679028C9CEE100A3F800 /* RateCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCalculator.swift; sourceTree = "<group>"; };
+		0226679228CBAC5C00A3F800 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0226679428CBB31400A3F800 /* MainScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainScreen.storyboard; sourceTree = "<group>"; };
+		0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		02D7CE7E28C5E002000309AF /* Currency Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02D7CE8128C5E002000309AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02D7CE8328C5E002000309AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +84,8 @@
 			children = (
 				02D7CE8528C5E002000309AF /* ViewController.swift */,
 				0226677328C768AA00A3F800 /* AddCurrencyViewController.swift */,
+				0226679228CBAC5C00A3F800 /* MainViewController.swift */,
+				0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -85,6 +95,7 @@
 			children = (
 				02D7CE8728C5E002000309AF /* Main.storyboard */,
 				02D7CE8C28C5E003000309AF /* LaunchScreen.storyboard */,
+				0226679428CBB31400A3F800 /* MainScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -95,6 +106,7 @@
 				0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */,
 				0226678728C8B85900A3F800 /* CurrencyModel.swift */,
 				0226678128C8A53100A3F800 /* CurrencyData.swift */,
+				0226679028C9CEE100A3F800 /* RateCalculator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -210,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0226676F28C637D800A3F800 /* Lato-Black.ttf in Resources */,
+				0226679528CBB31400A3F800 /* MainScreen.storyboard in Resources */,
 				0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */,
 				02D7CE8E28C5E003000309AF /* LaunchScreen.storyboard in Resources */,
 				0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */,
@@ -229,10 +242,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */,
+				0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */,
+				0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */,
 				02D7CE8628C5E002000309AF /* ViewController.swift in Sources */,
 				0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */,
 				0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */,
 				0226677428C768AA00A3F800 /* AddCurrencyViewController.swift in Sources */,
+				0226679128C9CEE100A3F800 /* RateCalculator.swift in Sources */,
 				02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */,
 				0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */,
 				0226678228C8A53100A3F800 /* CurrencyData.swift in Sources */,
@@ -388,7 +404,7 @@
 				INFOPLIST_FILE = "Currency Converter/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = MainScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -416,7 +432,7 @@
 				INFOPLIST_FILE = "Currency Converter/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = MainScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
