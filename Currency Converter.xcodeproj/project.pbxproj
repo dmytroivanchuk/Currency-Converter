@@ -10,7 +10,6 @@
 		0226676F28C637D800A3F800 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676C28C637D800A3F800 /* Lato-Black.ttf */; };
 		0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676D28C637D800A3F800 /* Lato-Regular.ttf */; };
 		0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676E28C637D800A3F800 /* Lato-Bold.ttf */; };
-		0226677428C768AA00A3F800 /* AddCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226677328C768AA00A3F800 /* AddCurrencyViewController.swift */; };
 		0226677E28C89D5200A3F800 /* historicalRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */; };
 		0226678028C89D9A00A3F800 /* latestRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677F28C89D9A00A3F800 /* latestRateAPIResponseExample.json */; };
 		0226678228C8A53100A3F800 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678128C8A53100A3F800 /* CurrencyData.swift */; };
@@ -19,14 +18,11 @@
 		0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678728C8B85900A3F800 /* CurrencyModel.swift */; };
 		0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */; };
 		0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */; };
-		0226679128C9CEE100A3F800 /* RateCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226679028C9CEE100A3F800 /* RateCalculator.swift */; };
 		0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226679228CBAC5C00A3F800 /* MainViewController.swift */; };
 		0226679528CBB31400A3F800 /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0226679428CBB31400A3F800 /* MainScreen.storyboard */; };
 		0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */; };
 		02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8128C5E002000309AF /* AppDelegate.swift */; };
 		02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8328C5E002000309AF /* SceneDelegate.swift */; };
-		02D7CE8628C5E002000309AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8528C5E002000309AF /* ViewController.swift */; };
-		02D7CE8928C5E002000309AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02D7CE8728C5E002000309AF /* Main.storyboard */; };
 		02D7CE8B28C5E003000309AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02D7CE8A28C5E003000309AF /* Assets.xcassets */; };
 		02D7CE8E28C5E003000309AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02D7CE8C28C5E003000309AF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -35,7 +31,6 @@
 		0226676C28C637D800A3F800 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		0226676D28C637D800A3F800 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		0226676E28C637D800A3F800 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
-		0226677328C768AA00A3F800 /* AddCurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyViewController.swift; sourceTree = "<group>"; };
 		0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = historicalRateAPIResponseExample.json; sourceTree = "<group>"; };
 		0226677F28C89D9A00A3F800 /* latestRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = latestRateAPIResponseExample.json; sourceTree = "<group>"; };
 		0226678128C8A53100A3F800 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
@@ -44,15 +39,12 @@
 		0226678728C8B85900A3F800 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrencyHTTPClient.swift; sourceTree = "<group>"; };
 		0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientFactory.swift; sourceTree = "<group>"; };
-		0226679028C9CEE100A3F800 /* RateCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCalculator.swift; sourceTree = "<group>"; };
 		0226679228CBAC5C00A3F800 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0226679428CBB31400A3F800 /* MainScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainScreen.storyboard; sourceTree = "<group>"; };
 		0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		02D7CE7E28C5E002000309AF /* Currency Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02D7CE8128C5E002000309AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02D7CE8328C5E002000309AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		02D7CE8528C5E002000309AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		02D7CE8828C5E002000309AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		02D7CE8A28C5E003000309AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02D7CE8D28C5E003000309AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02D7CE8F28C5E003000309AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,8 +74,6 @@
 		0226677928C89C9A00A3F800 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				02D7CE8528C5E002000309AF /* ViewController.swift */,
-				0226677328C768AA00A3F800 /* AddCurrencyViewController.swift */,
 				0226679228CBAC5C00A3F800 /* MainViewController.swift */,
 				0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */,
 			);
@@ -93,7 +83,6 @@
 		0226677A28C89CBA00A3F800 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				02D7CE8728C5E002000309AF /* Main.storyboard */,
 				02D7CE8C28C5E003000309AF /* LaunchScreen.storyboard */,
 				0226679428CBB31400A3F800 /* MainScreen.storyboard */,
 			);
@@ -106,7 +95,6 @@
 				0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */,
 				0226678728C8B85900A3F800 /* CurrencyModel.swift */,
 				0226678128C8A53100A3F800 /* CurrencyData.swift */,
-				0226679028C9CEE100A3F800 /* RateCalculator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,7 +218,6 @@
 				0226678028C89D9A00A3F800 /* latestRateAPIResponseExample.json in Resources */,
 				0226678628C8B78F00A3F800 /* Keys.plist in Resources */,
 				02D7CE8B28C5E003000309AF /* Assets.xcassets in Resources */,
-				02D7CE8928C5E002000309AF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,11 +231,8 @@
 				0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */,
 				0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */,
 				0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */,
-				02D7CE8628C5E002000309AF /* ViewController.swift in Sources */,
 				0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */,
 				0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */,
-				0226677428C768AA00A3F800 /* AddCurrencyViewController.swift in Sources */,
-				0226679128C9CEE100A3F800 /* RateCalculator.swift in Sources */,
 				02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */,
 				0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */,
 				0226678228C8A53100A3F800 /* CurrencyData.swift in Sources */,
@@ -259,14 +243,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		02D7CE8728C5E002000309AF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				02D7CE8828C5E002000309AF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		02D7CE8C28C5E003000309AF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
