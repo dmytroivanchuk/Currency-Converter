@@ -9,22 +9,29 @@ import Foundation
 
 struct CurrencyModel {
     init(currencyData: CurrencyData) {
-        rates = currencyData.rates
         timestamp = currencyData.timestamp
-    }
-    
-    let timestamp: TimeInterval
-    var rates: Rates
-    
-    var sections: [Section] {
-        let groupedDictionary = Dictionary(grouping: rates.allProperties(), by: {String($0.prefix(1))})
-        print(groupedDictionary)
+        
+        let mirror = Mirror(reflecting: currencyData.rates)
+            let dict = Dictionary(uniqueKeysWithValues: mirror.children.lazy.map({ (label:String?, value:Any) -> (String, Any)? in
+              guard let label = label else { return nil }
+              return (label, value)
+            }).compactMap { $0 })
+        ratesDictionary = dict
+        
+        
+        let groupedDictionary = Dictionary(grouping: currencyData.rates.allProperties(), by: {String($0.prefix(1))})
         // get the keys and sort them
         let keys = groupedDictionary.keys.sorted()
         // map the sorted keys to a struct
-        let sections = keys.map{ Section(letter: $0, names: groupedDictionary[$0]!.sorted().map { $0 + " - " + (currencyCodeFullNameDictionary[$0] ?? "") }) }
-        return sections
+        var sections = keys.map { Section(letter: $0, names: groupedDictionary[$0]!.sorted().map { $0 + " - " + (currencyCodeFullNameDictionary[$0] ?? "") }) }
+        sections.insert(Section(letter: "Popular", names: ["USD - US Dollar", "EUR - Euro", "UAH - Hryvnia"]), at: 0)
+        self.sections = sections
     }
+    
+    let timestamp: TimeInterval
+    var ratesDictionary: [String: Any]
+    
+    var sections = [Section]()
     
     var currencyCodeFullNameDictionary = [
         "AFN" : "Afghani",
