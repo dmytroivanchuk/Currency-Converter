@@ -74,6 +74,12 @@ class MainViewController: UIViewController {
         case baseCurrencyButton:
             currencyViewController.didSelectCurrencyCompletionHandler = { [weak self] name in
                 DispatchQueue.main.async {
+                    for button in self!.neededForRateCalculation.keys {
+                        if button.configuration?.title == name {
+                            button.configuration?.title = self?.baseCurrencyButton.configuration?.title
+                        }
+                    }
+                    
                     self?.baseCurrencyButton.configuration?.title = name
                     if let baseCurrency = self?.baseCurrencyButton.configuration?.title, let amount = self?.baseCurrencyTextField.text {
                         self?.convertCurrency(baseCurrency, amount: Double(amount))
@@ -93,6 +99,81 @@ class MainViewController: UIViewController {
 
         let additionalNavigationController = UINavigationController(rootViewController: currencyViewController)
         present(additionalNavigationController, animated: true)
+    }
+    
+    @objc private func didTapDeleteCurrency(_ sender: UIButton) {
+        for (key, value) in neededForRateCalculation where value == sender.superview {
+            self.neededForRateCalculation.removeValue(forKey: key)
+        }
+        let frameAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
+            sender.superview?.superview?.removeFromSuperview()
+            self.rateCalculationView.constraints.forEach {
+                if $0.identifier == "rateCalculationViewHeightConstraint" {
+                    $0.constant -= 60.0
+                }
+            }
+            self.rateCalculationView.updateConstraints()
+            self.mainScreenContentView.frame.size.height -= 60.0
+            self.mainScreenScrollView.contentSize.height -= 60.0
+        }
+        frameAnimator.startAnimation()
+    }
+    
+    @objc private func didTapSegment(_ sender: UISegmentedControl) {
+        let frameAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
+            switch sender.selectedSegmentIndex {
+    //        case 0:
+
+            case 1:
+                self.neededForRateCalculation.removeAll()
+                self.currencyRatesStackView.subviews.forEach {
+                    $0.subviews.forEach {
+                        $0.removeFromSuperview()
+                    }
+                    $0.removeFromSuperview()
+                }
+                self.addCurrencyButton.removeFromSuperview()
+                self.rateCalculationView.constraints.forEach {
+                    if $0.identifier == "rateCalculationViewHeightConstraint" {
+                        $0.constant = 326
+                    }
+                }
+                self.rateCalculationView.updateConstraints()
+                self.mainScreenScrollView.contentSize = self.view.frame.size
+                self.mainScreenContentView.frame.size = self.mainScreenScrollView.frame.size
+                self.configureCurrencyRatesStackView()
+                self.configureCurrenciesStackViews()
+                if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
+                    self.convertCurrency(baseCurrency, amount: Double(amount))
+                }
+            case 2:
+                self.neededForRateCalculation.removeAll()
+                self.currencyRatesStackView.subviews.forEach {
+                    $0.subviews.forEach {
+                        $0.removeFromSuperview()
+                    }
+                    $0.removeFromSuperview()
+                }
+                self.addCurrencyButton.removeFromSuperview()
+                self.rateCalculationView.constraints.forEach {
+                    if $0.identifier == "rateCalculationViewHeightConstraint" {
+                        $0.constant = 326
+                    }
+                }
+                self.rateCalculationView.updateConstraints()
+                self.mainScreenScrollView.contentSize = self.view.frame.size
+                self.mainScreenContentView.frame.size = self.mainScreenScrollView.frame.size
+                self.configureCurrencyRatesStackView()
+                self.configureCurrenciesStackViews()
+                if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
+                    self.convertCurrency(baseCurrency, amount: Double(amount))
+                }
+
+            default:
+                return
+            }
+        }
+        frameAnimator.startAnimation()
     }
     
     
@@ -161,8 +242,10 @@ class MainViewController: UIViewController {
         currencyOperationSegmentedControl.leadingAnchor.constraint(equalTo: rateCalculationView.leadingAnchor, constant: 16.0).isActive = true
         currencyOperationSegmentedControl.trailingAnchor.constraint(equalTo: rateCalculationView.trailingAnchor, constant: -16.0).isActive = true
         currencyOperationSegmentedControl.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-        currencyOperationSegmentedControl.insertSegment(withTitle: "Sell", at: 0, animated: false)
-        currencyOperationSegmentedControl.insertSegment(withTitle: "Buy", at: 1, animated: false)
+        currencyOperationSegmentedControl.insertSegment(withTitle: "Average", at: 0, animated: false)
+        currencyOperationSegmentedControl.insertSegment(withTitle: "Sell", at: 1, animated: false)
+        currencyOperationSegmentedControl.insertSegment(withTitle: "Buy", at: 2, animated: false)
+        currencyOperationSegmentedControl.isEnabledForSegment(at: 0)
         currencyOperationSegmentedControl.selectedSegmentTintColor = .systemBlue
         currencyOperationSegmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.font: UIFont(name: "Lato-Regular", size: 18)!,
@@ -170,6 +253,7 @@ class MainViewController: UIViewController {
         ], for: .normal)
         currencyOperationSegmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        currencyOperationSegmentedControl.addTarget(self, action: #selector(didTapSegment), for: .valueChanged)
     }
     
     private func configureCurrencyRatesStackView() {
@@ -351,11 +435,11 @@ class MainViewController: UIViewController {
         additionalCurrencyTextField.backgroundColor = .tertiarySystemGroupedBackground
         additionalCurrencyTextField.borderStyle = .none
         additionalCurrencyTextField.layer.cornerRadius = 6.0
-        additionalCurrencyTextField.isUserInteractionEnabled = false
         additionalCurrencyTextField.textColor = .systemGray
         additionalCurrencyTextField.font = UIFont(name: "Lato-Regular", size: 14.0)
         additionalCurrencyTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: additionalCurrencyTextField.frame.height))
         additionalCurrencyTextField.leftViewMode = .always
+        additionalCurrencyTextField.delegate = self
         
         let deleteCurrencyButton = UIButton()
         var configuration = UIButton.Configuration.plain()
@@ -365,8 +449,10 @@ class MainViewController: UIViewController {
         confiquration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         deleteCurrencyButton.configuration = configuration
         deleteCurrencyButton.contentHorizontalAlignment = .trailing
+        deleteCurrencyButton.addTarget(self, action: #selector(didTapDeleteCurrency), for: .touchUpInside)
         additionalCurrencyTextField.rightView = deleteCurrencyButton
         additionalCurrencyTextField.rightViewMode = .always
+
         
         
         neededForRateCalculation[additionalCurrencyButton] = additionalCurrencyTextField
@@ -380,9 +466,9 @@ class MainViewController: UIViewController {
         additionalCurrencyStackView.addArrangedSubview(additionalCurrencyButton)
         additionalCurrencyStackView.addArrangedSubview(additionalCurrencyTextField)
         
-        for constraint in rateCalculationView.constraints {
-            if constraint.identifier == "rateCalculationViewHeightConstraint" {
-                constraint.constant += 60.0
+        rateCalculationView.constraints.forEach {
+            if $0.identifier == "rateCalculationViewHeightConstraint" {
+                $0.constant += 60.0
             }
         }
         rateCalculationView.updateConstraints()
@@ -441,6 +527,10 @@ extension MainViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.systemBlue.cgColor
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField == baseCurrencyTextField ? true : false
     }
 }
 
