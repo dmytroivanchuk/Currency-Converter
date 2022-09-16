@@ -9,6 +9,7 @@ import Foundation
 
 protocol CurrencyHTTPClientProtocol {
     func fetchRate(completion completionHandler: @escaping (Result<CurrencyModel, CurrencyHTTPClientError>) -> Void)
+    func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void)
 }
 
 // create WeatherManager struct, responsible for fetching current weather data using public API, based on user's coordinates
@@ -47,7 +48,7 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
         return components.url!
     }
     
-    func fetchRate(completion completionHandler: @escaping (Result<CurrencyModel, CurrencyHTTPClientError>) -> Void) {
+    func fetchRate(completion completionHandler: @escaping (Result <CurrencyModel, CurrencyHTTPClientError>) -> Void) {
         var request = URLRequest(url: url, timeoutInterval: Double.infinity)
         request.httpMethod = "GET"
         request.addValue(apiKey, forHTTPHeaderField: "apikey")
@@ -79,6 +80,35 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
             return nil
         }
     }
+    
+    func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void) {
+//        if let url = URL(string: "https://api.monobank.ua/bank/currency") {
+//
+//            let task = urlSession.dataTask(with: url) { data, response, error in
+//                guard let buySellRateData = data else {
+//                    completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
+//                    return
+//                }
+//                guard let buySellRateModel = parseBuySellRateJSON(buySellRateData) else {
+//                    completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
+//                    return
+//                }
+//                completionHandler(Result.success(buySellRateModel))
+//            }
+//            task.resume()
+//        }
+    }
+    
+//    private func parseBuySellRateJSON(_ buySellRateData: Data) -> BuySellRateModel? {
+//        let decoder = JSONDecoder()
+//        do {
+//            let decodedData = try decoder.decode([BuySellRateData].self, from: buySellRateData)
+//            let buySellRateModel = BuySellRateModel(buySellRateData: decodedData)
+//            return buySellRateModel
+//        } catch {
+//            return nil
+//        }
+//    }
 }
 
 enum CurrencyHTTPClientError: Error {
