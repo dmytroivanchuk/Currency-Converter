@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 protocol CurrencyHTTPClientProtocol {
-    func fetchRate(completion completionHandler: @escaping (Result<CurrencyModel, CurrencyHTTPClientError>) -> Void)
+    func fetchMidpointRate(completion completionHandler: @escaping (Result <MidpointRateModel, CurrencyHTTPClientError>) -> Void)
     func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void)
 }
 
@@ -48,67 +49,47 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
         return components.url!
     }
     
-    func fetchRate(completion completionHandler: @escaping (Result <CurrencyModel, CurrencyHTTPClientError>) -> Void) {
+    func fetchMidpointRate(completion completionHandler: @escaping (Result <MidpointRateModel, CurrencyHTTPClientError>) -> Void) {
         var request = URLRequest(url: url, timeoutInterval: Double.infinity)
         request.httpMethod = "GET"
         request.addValue(apiKey, forHTTPHeaderField: "apikey")
 
         let task = urlSession.dataTask(with: request) { data, response, error in
-            guard let currencyData = data else {
+            guard let jsonData = data else {
                 completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
                 return
             }
-            
-            guard let currencyModel = parseJSON(currencyData) else {
+            do {
+                let jsonObject = try JSON(data: jsonData)
+                let midpointRateModel = MidpointRateModel(jsonObject: jsonObject)
+                completionHandler(Result.success(midpointRateModel))
+            } catch {
                 completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
-                return
             }
-            
-            completionHandler(Result.success(currencyModel))
         }
 
         task.resume()
     }
     
-    private func parseJSON(_ currencyData: Data) -> CurrencyModel? {
-        let decoder = JSONDecoder()
-        do {
-            let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-            let currencyModel = CurrencyModel(currencyData: decodedData)
-            return currencyModel
-        } catch {
-            return nil
+    func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void) {
+        if let url = URL(string: "https://api.monobank.ua/bank/currency") {
+
+            let task = urlSession.dataTask(with: url) { data, response, error in
+                guard let jsonData = data else {
+                    completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
+                    return
+                }
+                do {
+                    let jsonObject = try JSON(data: jsonData)
+                    let buySellRateModel = BuySellRateModel(jsonObject: jsonObject)
+                    completionHandler(Result.success(buySellRateModel))
+                } catch {
+                    completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
+                }
+            }
+            task.resume()
         }
     }
-    
-    func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void) {
-//        if let url = URL(string: "https://api.monobank.ua/bank/currency") {
-//
-//            let task = urlSession.dataTask(with: url) { data, response, error in
-//                guard let buySellRateData = data else {
-//                    completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
-//                    return
-//                }
-//                guard let buySellRateModel = parseBuySellRateJSON(buySellRateData) else {
-//                    completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
-//                    return
-//                }
-//                completionHandler(Result.success(buySellRateModel))
-//            }
-//            task.resume()
-//        }
-    }
-    
-//    private func parseBuySellRateJSON(_ buySellRateData: Data) -> BuySellRateModel? {
-//        let decoder = JSONDecoder()
-//        do {
-//            let decodedData = try decoder.decode([BuySellRateData].self, from: buySellRateData)
-//            let buySellRateModel = BuySellRateModel(buySellRateData: decodedData)
-//            return buySellRateModel
-//        } catch {
-//            return nil
-//        }
-//    }
 }
 
 enum CurrencyHTTPClientError: Error {
