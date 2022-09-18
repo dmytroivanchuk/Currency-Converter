@@ -12,13 +12,13 @@ class CurrencyViewController: UIViewController {
     private let currencySearchBar = UISearchBar()
     private let currencyTableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    private var sections: [Section]
-    private var filteredSections = [Section]()
+    private var currencySections: [CurrencySection]
+    private var filteredSections: [CurrencySection] = []
     private var sectionsIsFilteredWithNoMatches = false
     public var didSelectCurrencyCompletionHandler: ((String) -> Void)?
     
-    init(sections: [Section]) {
-        self.sections = sections
+    init(currencySections: [CurrencySection]) {
+        self.currencySections = currencySections
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -100,7 +100,7 @@ class CurrencyViewController: UIViewController {
 extension CurrencyViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currency = filteredSections.isEmpty ? sections[indexPath.section].names[indexPath.row] : filteredSections[indexPath.section].names[indexPath.row]
+        let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         dismiss(animated: true)
         didSelectCurrencyCompletionHandler?(String(currency.prefix(3)))
@@ -116,18 +116,18 @@ extension CurrencyViewController: UITableViewDataSource {
         if sectionsIsFilteredWithNoMatches {
             return 0
         } else if filteredSections.isEmpty {
-            return sections.count
+            return currencySections.count
         } else {
             return filteredSections.count
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filteredSections.isEmpty ? sections[section].names.count : filteredSections[section].names.count
+        filteredSections.isEmpty ? currencySections[section].currencyStrings.count : filteredSections[section].currencyStrings.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currency = filteredSections.isEmpty ? sections[indexPath.section].names[indexPath.row] : filteredSections[indexPath.section].names[indexPath.row]
+        let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
@@ -139,7 +139,7 @@ extension CurrencyViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        filteredSections.isEmpty ? sections[section].letter : filteredSections[section].letter
+        filteredSections.isEmpty ? currencySections[section].title : filteredSections[section].title
     }
 }
 
@@ -150,14 +150,13 @@ extension CurrencyViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredSections.removeAll()
-        for section in sections {
-            let filteredNames = section.names.filter { $0.lowercased().contains(searchText.lowercased()) }
-            if filteredNames.count != 0 {
-                filteredSections.append(Section(letter: section.letter, names: filteredNames))
+        for section in currencySections {
+            let filteredCurrencyStrings = section.currencyStrings.filter { $0.lowercased().contains(searchText.lowercased()) }
+            if filteredCurrencyStrings.count != 0 {
+                filteredSections.append(CurrencySection(title: section.title, currencyStrings: filteredCurrencyStrings))
             }
         }
         sectionsIsFilteredWithNoMatches = !searchText.isEmpty && filteredSections.isEmpty ? true : false
-        
         currencyTableView.reloadData()
     }
 }

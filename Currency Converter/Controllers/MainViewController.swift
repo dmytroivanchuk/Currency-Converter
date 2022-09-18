@@ -26,9 +26,12 @@ class MainViewController: UIViewController {
     private let lastYearRateButton = UIButton()
     
     private let currencyHTTPClient = MockCurrencyHTTPClient()
-    private var currencySections = [Section]()
-    private var currencyRates = [String: Any]()
-    private var neededForRateCalculation = [UIButton: UITextField]()
+    private let currencyConverter = CurrencyConverter()
+    private var midpointRateCurrencySections: [CurrencySection] = []
+    private var buySellRateCurrencySections: [CurrencySection] = []
+    private var midpointCurrencyRates: [CurrencyRate] = []
+    private var buySellCurrencyRates: [CurrencyRate] = []
+    private var neededForRateCalculation: [UIButton: UITextField] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,84 +50,31 @@ class MainViewController: UIViewController {
         configureUpdateInfoLabel()
         configureLastYearRateButton()
         
-        currencyHTTPClient.fetchRate { [weak self] result in
+        currencyHTTPClient.fetchMidpointRate { [weak self] result in
             switch result {
-            case .success(let currencyModel):
-                self?.currencySections = currencyModel.sections
-                self?.currencyRates = currencyModel.ratesDictionary
+            case .success(let midpointRateModel):
+                self?.midpointRateCurrencySections = midpointRateModel.currencySections
+                self?.midpointCurrencyRates = midpointRateModel.currencyRates
             case .failure(_):
-                print("error")
+                print("1")
             }
         }
-    }
-    
-    @objc private func didTapAddCurrency(_ sender: UIButton) {
-        let currencyViewController = CurrencyViewController(sections: currencySections)
         
-        switch sender {
-        case addCurrencyButton:
-            currencyViewController.didSelectCurrencyCompletionHandler = { [weak self] name in
-                DispatchQueue.main.async {
-                    self?.configureAdditionalCurrencyStackView(currency: name)
-                    if let baseCurrency = self?.baseCurrencyButton.configuration?.title, let amount = self?.baseCurrencyTextField.text {
-                        self?.convertCurrency(baseCurrency, amount: Double(amount))
-                    }
-                }
-            }
-        case baseCurrencyButton:
-            currencyViewController.didSelectCurrencyCompletionHandler = { [weak self] name in
-                DispatchQueue.main.async {
-                    for button in self!.neededForRateCalculation.keys {
-                        if button.configuration?.title == name {
-                            button.configuration?.title = self?.baseCurrencyButton.configuration?.title
-                        }
-                    }
-                    
-                    self?.baseCurrencyButton.configuration?.title = name
-                    if let baseCurrency = self?.baseCurrencyButton.configuration?.title, let amount = self?.baseCurrencyTextField.text {
-                        self?.convertCurrency(baseCurrency, amount: Double(amount))
-                    }
-                }
-            }
-        default:
-            currencyViewController.didSelectCurrencyCompletionHandler = { [weak self] name in
-                DispatchQueue.main.async {
-                    sender.configuration?.title = name
-                    if let baseCurrency = self?.baseCurrencyButton.configuration?.title, let amount = self?.baseCurrencyTextField.text {
-                        self?.convertCurrency(baseCurrency, amount: Double(amount))
-                    }
-                }
+        currencyHTTPClient.fetchBuySellRate { [weak self] result in
+            switch result {
+            case .success(let buySellRateModel):
+                self?.buySellRateCurrencySections = buySellRateModel.currencySections
+                self?.buySellCurrencyRates = buySellRateModel.currencyRates
+            case .failure(_):
+                print("2")
             }
         }
-
-        let additionalNavigationController = UINavigationController(rootViewController: currencyViewController)
-        present(additionalNavigationController, animated: true)
-    }
-    
-    @objc private func didTapDeleteCurrency(_ sender: UIButton) {
-        for (key, value) in neededForRateCalculation where value == sender.superview {
-            self.neededForRateCalculation.removeValue(forKey: key)
-        }
-        let frameAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
-            sender.superview?.superview?.removeFromSuperview()
-            self.rateCalculationView.constraints.forEach {
-                if $0.identifier == "rateCalculationViewHeightConstraint" {
-                    $0.constant -= 60.0
-                }
-            }
-            self.rateCalculationView.updateConstraints()
-            self.mainScreenContentView.frame.size.height -= 60.0
-            self.mainScreenScrollView.contentSize.height -= 60.0
-        }
-        frameAnimator.startAnimation()
     }
     
     @objc private func didTapSegment(_ sender: UISegmentedControl) {
         let frameAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
             switch sender.selectedSegmentIndex {
-    //        case 0:
-
-            case 1:
+            case 1, 2:
                 self.neededForRateCalculation.removeAll()
                 self.currencyRatesStackView.subviews.forEach {
                     $0.subviews.forEach {
@@ -146,31 +96,26 @@ class MainViewController: UIViewController {
                 if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
                     self.convertCurrency(baseCurrency, amount: Double(amount))
                 }
-            case 2:
-                self.neededForRateCalculation.removeAll()
-                self.currencyRatesStackView.subviews.forEach {
-                    $0.subviews.forEach {
-                        $0.removeFromSuperview()
-                    }
-                    $0.removeFromSuperview()
-                }
-                self.addCurrencyButton.removeFromSuperview()
-                self.rateCalculationView.constraints.forEach {
-                    if $0.identifier == "rateCalculationViewHeightConstraint" {
-                        $0.constant = 326
-                    }
-                }
-                self.rateCalculationView.updateConstraints()
-                self.mainScreenScrollView.contentSize = self.view.frame.size
-                self.mainScreenContentView.frame.size = self.mainScreenScrollView.frame.size
-                self.configureCurrencyRatesStackView()
-                self.configureCurrenciesStackViews()
-                if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
-                    self.convertCurrency(baseCurrency, amount: Double(amount))
-                }
-
             default:
-                return
+                self.neededForRateCalculation.removeAll()
+                self.currencyRatesStackView.subviews.forEach {
+                    $0.subviews.forEach {
+                        $0.removeFromSuperview()
+                    }
+                    $0.removeFromSuperview()
+                }
+                self.rateCalculationView.constraints.forEach {
+                    if $0.identifier == "rateCalculationViewHeightConstraint" {
+                        $0.constant = 398
+                    }
+                }
+                self.rateCalculationView.updateConstraints()
+                self.configureCurrencyRatesStackView()
+                self.configureCurrenciesStackViews()
+                self.configureAddCurrencyButton()
+                if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
+                    self.convertCurrency(baseCurrency, amount: Double(amount))
+                }
             }
         }
         frameAnimator.startAnimation()
@@ -242,7 +187,7 @@ class MainViewController: UIViewController {
         currencyOperationSegmentedControl.leadingAnchor.constraint(equalTo: rateCalculationView.leadingAnchor, constant: 16.0).isActive = true
         currencyOperationSegmentedControl.trailingAnchor.constraint(equalTo: rateCalculationView.trailingAnchor, constant: -16.0).isActive = true
         currencyOperationSegmentedControl.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-        currencyOperationSegmentedControl.insertSegment(withTitle: "Average", at: 0, animated: false)
+        currencyOperationSegmentedControl.insertSegment(withTitle: "Midpoint", at: 0, animated: false)
         currencyOperationSegmentedControl.insertSegment(withTitle: "Sell", at: 1, animated: false)
         currencyOperationSegmentedControl.insertSegment(withTitle: "Buy", at: 2, animated: false)
         currencyOperationSegmentedControl.isEnabledForSegment(at: 0)
@@ -253,6 +198,7 @@ class MainViewController: UIViewController {
         ], for: .normal)
         currencyOperationSegmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        currencyOperationSegmentedControl.selectedSegmentIndex = 0
         currencyOperationSegmentedControl.addTarget(self, action: #selector(didTapSegment), for: .valueChanged)
     }
     
@@ -476,14 +422,111 @@ class MainViewController: UIViewController {
         mainScreenScrollView.contentSize.height += 60.0
     }
     
+    @objc private func didTapAddCurrency(_ sender: UIButton) {
+        var currencyViewController: CurrencyViewController
+        
+        switch currencyOperationSegmentedControl.selectedSegmentIndex {
+        case 0:
+            currencyViewController = CurrencyViewController(currencySections: midpointRateCurrencySections)
+        default:
+            currencyViewController = CurrencyViewController(currencySections: buySellRateCurrencySections)
+        }
+        
+        switch sender {
+        case addCurrencyButton:
+            currencyViewController.didSelectCurrencyCompletionHandler = { [weak self] name in
+                DispatchQueue.main.async {
+                    self?.configureAdditionalCurrencyStackView(currency: name)
+                    if let baseCurrency = self?.baseCurrencyButton.configuration?.title, let amount = self?.baseCurrencyTextField.text {
+                        self?.convertCurrency(baseCurrency, amount: Double(amount))
+                    }
+                }
+            }
+        case baseCurrencyButton:
+            currencyViewController.didSelectCurrencyCompletionHandler = { [weak self] name in
+                DispatchQueue.main.async {
+                    for button in self!.neededForRateCalculation.keys {
+                        if button.configuration?.title == name {
+                            button.configuration?.title = self?.baseCurrencyButton.configuration?.title
+                        }
+                    }
+                    
+                    self?.baseCurrencyButton.configuration?.title = name
+                    if let baseCurrency = self?.baseCurrencyButton.configuration?.title, let amount = self?.baseCurrencyTextField.text {
+                        self?.convertCurrency(baseCurrency, amount: Double(amount))
+                    }
+                }
+            }
+        default:
+            currencyViewController.didSelectCurrencyCompletionHandler = { [weak self] name in
+                DispatchQueue.main.async {
+                    sender.configuration?.title = name
+                    if let baseCurrency = self?.baseCurrencyButton.configuration?.title, let amount = self?.baseCurrencyTextField.text {
+                        self?.convertCurrency(baseCurrency, amount: Double(amount))
+                    }
+                }
+            }
+        }
+
+        let additionalNavigationController = UINavigationController(rootViewController: currencyViewController)
+        present(additionalNavigationController, animated: true)
+    }
+    
+    
+    //MARK: - Handle Deleting Additional Currencies
+    
+    @objc private func didTapDeleteCurrency(_ sender: UIButton) {
+        for (key, value) in neededForRateCalculation where value == sender.superview {
+            self.neededForRateCalculation.removeValue(forKey: key)
+        }
+        let frameAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
+            sender.superview?.superview?.removeFromSuperview()
+            self.rateCalculationView.constraints.forEach {
+                if $0.identifier == "rateCalculationViewHeightConstraint" {
+                    $0.constant -= 60.0
+                }
+            }
+            self.rateCalculationView.updateConstraints()
+            self.mainScreenContentView.frame.size.height -= 60.0
+            self.mainScreenScrollView.contentSize.height -= 60.0
+        }
+        frameAnimator.startAnimation()
+    }
+    
     
     //MARK: - Handle Rate Calculation
     
-    func convertCurrency(_ currency: String, amount: Double?) {
-        if let amount = amount {
+    func convertCurrency(_ currency: String?, amount: Double?) {
+        
+        if let currency = currency, let amount = amount {
             for button in neededForRateCalculation.keys {
-                let converted = (currencyRates[button.titleLabel!.text!]! as! Double) / (currencyRates[currency]! as! Double) * amount
-                neededForRateCalculation[button]?.text = String(format: "%.2f", converted)
+
+                switch currencyOperationSegmentedControl.selectedSegmentIndex {
+                case 1:
+                    if let additionalBuySellCurrency = buySellCurrencyRates.first(where: { $0.currencyCode == button.configuration?.title }),
+                       let baseBuySellCurrency = buySellCurrencyRates.first(where: { $0.currencyCode == currency }) {
+                        if let additional = additionalBuySellCurrency.rateSell, let base = baseBuySellCurrency.rateSell {
+                            let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
+                            neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
+                        }
+                    }
+                case 2:
+                    if let additionalBuySellCurrency = buySellCurrencyRates.first(where: { $0.currencyCode == button.configuration?.title }),
+                       let baseBuySellCurrency = buySellCurrencyRates.first(where: { $0.currencyCode == currency }) {
+                        if let additional = additionalBuySellCurrency.rateBuy, let base = baseBuySellCurrency.rateBuy {
+                            let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
+                            neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
+                        }
+                    }
+                default:
+                    if let additionalMidpointCurrency = midpointCurrencyRates.first(where: { $0.currencyCode == button.configuration?.title }),
+                       let baseMidpointCurrency = midpointCurrencyRates.first(where: { $0.currencyCode == currency }) {
+                        if let additional = additionalMidpointCurrency.rateMidpoint, let base = baseMidpointCurrency.rateMidpoint {
+                            let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
+                            neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
+                        }
+                    }
+                }
             }
         } else {
             for button in neededForRateCalculation.keys {
@@ -518,7 +561,7 @@ extension MainViewController: UITextFieldDelegate {
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
         if let input = textField.text {
-            convertCurrency(baseCurrencyButton.titleLabel!.text!, amount: Double(input))
+            convertCurrency(baseCurrencyButton.configuration?.title, amount: Double(input))
         }
         
         
