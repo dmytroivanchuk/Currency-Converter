@@ -12,14 +12,18 @@
 		0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676E28C637D800A3F800 /* Lato-Bold.ttf */; };
 		0226677E28C89D5200A3F800 /* historicalRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */; };
 		0226678028C89D9A00A3F800 /* midpointRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677F28C89D9A00A3F800 /* midpointRateAPIResponseExample.json */; };
-		0226678228C8A53100A3F800 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678128C8A53100A3F800 /* CurrencyData.swift */; };
 		0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */; };
 		0226678628C8B78F00A3F800 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0226678528C8B78F00A3F800 /* Keys.plist */; };
-		0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678728C8B85900A3F800 /* CurrencyModel.swift */; };
 		0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */; };
 		0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */; };
 		0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226679228CBAC5C00A3F800 /* MainViewController.swift */; };
 		0226679528CBB31400A3F800 /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0226679428CBB31400A3F800 /* MainScreen.storyboard */; };
+		023F8DBA28D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DB928D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift */; };
+		023F8DBC28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DBB28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift */; };
+		023F8DBE28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */; };
+		023F8DC028DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */; };
+		023F8DC228DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */; };
+		024B126428D8C5D300E06819 /* MiddleRateCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */; };
 		0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */; };
 		02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8128C5E002000309AF /* AppDelegate.swift */; };
 		02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8328C5E002000309AF /* SceneDelegate.swift */; };
@@ -28,10 +32,12 @@
 		02F9AD1C28D4838400925E5A /* buySellRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 02F9AD1B28D4838400925E5A /* buySellRateAPIResponseExample.json */; };
 		02F9AD2028D49C6100925E5A /* BuySellRateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */; };
 		02F9AD2328D4CA4800925E5A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 02F9AD2228D4CA4800925E5A /* SwiftyJSON */; };
-		02F9AD2528D4D73200925E5A /* CurrencyRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD2428D4D73200925E5A /* CurrencyRate.swift */; };
+		02F9AD2528D4D73200925E5A /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD2428D4D73200925E5A /* Currency.swift */; };
 		02F9AD2728D4E1B500925E5A /* CurrencySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD2628D4E1B500925E5A /* CurrencySection.swift */; };
-		02F9AD2928D503C500925E5A /* MidpointRateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD2828D503C400925E5A /* MidpointRateModel.swift */; };
+		02F9AD2928D503C500925E5A /* MiddleRateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD2828D503C400925E5A /* MiddleRateModel.swift */; };
 		02F9AD2B28D791E200925E5A /* CurrencyConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */; };
+		02F9AD2E28D8749000925E5A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 02F9AD2D28D8749000925E5A /* Realm */; };
+		02F9AD3028D8749000925E5A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02F9AD2F28D8749000925E5A /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,14 +46,18 @@
 		0226676E28C637D800A3F800 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = historicalRateAPIResponseExample.json; sourceTree = "<group>"; };
 		0226677F28C89D9A00A3F800 /* midpointRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = midpointRateAPIResponseExample.json; sourceTree = "<group>"; };
-		0226678128C8A53100A3F800 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyHTTPClient.swift; sourceTree = "<group>"; };
 		0226678528C8B78F00A3F800 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		0226678728C8B85900A3F800 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrencyHTTPClient.swift; sourceTree = "<group>"; };
 		0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientFactory.swift; sourceTree = "<group>"; };
 		0226679228CBAC5C00A3F800 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0226679428CBB31400A3F800 /* MainScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainScreen.storyboard; sourceTree = "<group>"; };
+		023F8DB928D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencySectionData.swift; sourceTree = "<group>"; };
+		023F8DBB28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySellRateCurrencyData.swift; sourceTree = "<group>"; };
+		023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySellRateCurrencySectionData.swift; sourceTree = "<group>"; };
+		023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencyDateData.swift; sourceTree = "<group>"; };
+		023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySellRateCurrencyDateData.swift; sourceTree = "<group>"; };
+		024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencyData.swift; sourceTree = "<group>"; };
 		0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		02D7CE7E28C5E002000309AF /* Currency Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02D7CE8128C5E002000309AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,9 +67,9 @@
 		02D7CE8F28C5E003000309AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02F9AD1B28D4838400925E5A /* buySellRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = buySellRateAPIResponseExample.json; sourceTree = "<group>"; };
 		02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySellRateModel.swift; sourceTree = "<group>"; };
-		02F9AD2428D4D73200925E5A /* CurrencyRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRate.swift; sourceTree = "<group>"; };
+		02F9AD2428D4D73200925E5A /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		02F9AD2628D4E1B500925E5A /* CurrencySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySection.swift; sourceTree = "<group>"; };
-		02F9AD2828D503C400925E5A /* MidpointRateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidpointRateModel.swift; sourceTree = "<group>"; };
+		02F9AD2828D503C400925E5A /* MiddleRateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateModel.swift; sourceTree = "<group>"; };
 		02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F9AD3028D8749000925E5A /* RealmSwift in Frameworks */,
+				02F9AD2E28D8749000925E5A /* Realm in Frameworks */,
 				02F9AD2328D4CA4800925E5A /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,13 +119,17 @@
 			isa = PBXGroup;
 			children = (
 				0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */,
-				0226678728C8B85900A3F800 /* CurrencyModel.swift */,
-				0226678128C8A53100A3F800 /* CurrencyData.swift */,
-				02F9AD2828D503C400925E5A /* MidpointRateModel.swift */,
+				02F9AD2828D503C400925E5A /* MiddleRateModel.swift */,
 				02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */,
-				02F9AD2428D4D73200925E5A /* CurrencyRate.swift */,
+				02F9AD2428D4D73200925E5A /* Currency.swift */,
 				02F9AD2628D4E1B500925E5A /* CurrencySection.swift */,
 				02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */,
+				024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */,
+				023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */,
+				023F8DB928D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift */,
+				023F8DBB28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift */,
+				023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */,
+				023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,6 +205,8 @@
 			name = "Currency Converter";
 			packageProductDependencies = (
 				02F9AD2228D4CA4800925E5A /* SwiftyJSON */,
+				02F9AD2D28D8749000925E5A /* Realm */,
+				02F9AD2F28D8749000925E5A /* RealmSwift */,
 			);
 			productName = "Currency Converter";
 			productReference = 02D7CE7E28C5E002000309AF /* Currency Converter.app */;
@@ -220,6 +238,7 @@
 			mainGroup = 02D7CE7528C5E002000309AF;
 			packageReferences = (
 				02F9AD2128D4CA4800925E5A /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				02F9AD2C28D8749000925E5A /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 02D7CE7F28C5E002000309AF /* Products */;
 			projectDirPath = "";
@@ -255,20 +274,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0226678828C8B85A00A3F800 /* CurrencyModel.swift in Sources */,
 				02F9AD2B28D791E200925E5A /* CurrencyConverter.swift in Sources */,
 				0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */,
 				02F9AD2728D4E1B500925E5A /* CurrencySection.swift in Sources */,
+				023F8DC228DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift in Sources */,
 				02F9AD2028D49C6100925E5A /* BuySellRateModel.swift in Sources */,
+				024B126428D8C5D300E06819 /* MiddleRateCurrencyData.swift in Sources */,
+				023F8DBC28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift in Sources */,
+				023F8DC028DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift in Sources */,
+				023F8DBE28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift in Sources */,
 				0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */,
-				02F9AD2528D4D73200925E5A /* CurrencyRate.swift in Sources */,
+				02F9AD2528D4D73200925E5A /* Currency.swift in Sources */,
 				0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */,
 				0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */,
 				02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */,
+				023F8DBA28D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift in Sources */,
 				0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */,
-				0226678228C8A53100A3F800 /* CurrencyData.swift in Sources */,
 				02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */,
-				02F9AD2928D503C500925E5A /* MidpointRateModel.swift in Sources */,
+				02F9AD2928D503C500925E5A /* MiddleRateModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +511,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		02F9AD2C28D8749000925E5A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -495,6 +526,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 02F9AD2128D4CA4800925E5A /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		02F9AD2D28D8749000925E5A /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02F9AD2C28D8749000925E5A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		02F9AD2F28D8749000925E5A /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02F9AD2C28D8749000925E5A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
