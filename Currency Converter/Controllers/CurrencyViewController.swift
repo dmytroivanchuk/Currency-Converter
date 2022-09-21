@@ -6,19 +6,27 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CurrencyViewController: UIViewController {
     
     private let currencySearchBar = UISearchBar()
     private let currencyTableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    private var currencySections: [CurrencySection]
+    private var middleRateCurrencySections: Results<MiddleRateCurrencySectionData>?
+    private var buySellRateCurrencySections: Results<BuySellRateCurrencySectionData>?
+    
     private var filteredSections: [CurrencySection] = []
     private var sectionsIsFilteredWithNoMatches = false
     public var didSelectCurrencyCompletionHandler: ((String) -> Void)?
     
-    init(currencySections: [CurrencySection]) {
-        self.currencySections = currencySections
+    init(sections: Results<MiddleRateCurrencySectionData>?) {
+        middleRateCurrencySections = sections
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(sections: Results<BuySellRateCurrencySectionData>?) {
+        buySellRateCurrencySections = sections
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -100,10 +108,19 @@ class CurrencyViewController: UIViewController {
 extension CurrencyViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
+        if let currencySections = middleRateCurrencySections {
+            let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
+            
+            didSelectCurrencyCompletionHandler?(String(currency.prefix(3)))
+        }
+        if let currencySections = buySellRateCurrencySections {
+            let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
+            
+            didSelectCurrencyCompletionHandler?(String(currency.prefix(3)))
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
         dismiss(animated: true)
-        didSelectCurrencyCompletionHandler?(String(currency.prefix(3)))
     }
 }
 
@@ -113,33 +130,76 @@ extension CurrencyViewController: UITableViewDelegate {
 extension CurrencyViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if sectionsIsFilteredWithNoMatches {
-            return 0
-        } else if filteredSections.isEmpty {
-            return currencySections.count
-        } else {
-            return filteredSections.count
+        if let currencySections = middleRateCurrencySections {
+            if sectionsIsFilteredWithNoMatches {
+                return 0
+            } else if filteredSections.isEmpty {
+                return currencySections.count
+            } else {
+                return filteredSections.count
+            }
         }
+        
+        if let currencySections = buySellRateCurrencySections {
+            if sectionsIsFilteredWithNoMatches {
+                return 0
+            } else if filteredSections.isEmpty {
+                return currencySections.count
+            } else {
+                return filteredSections.count
+            }
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filteredSections.isEmpty ? currencySections[section].currencyStrings.count : filteredSections[section].currencyStrings.count
+        if let currencySections = middleRateCurrencySections {
+            return filteredSections.isEmpty ? currencySections[section].currencyStrings.count : filteredSections[section].currencyStrings.count
+        }
+        
+        if let currencySections = buySellRateCurrencySections {
+            return filteredSections.isEmpty ? currencySections[section].currencyStrings.count : filteredSections[section].currencyStrings.count
+        }
+        
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.attributedText = NSMutableAttributedString(string: currency, attributes: [
-            NSAttributedString.Key.font: UIFont(name: "Lato-Regular", size: 17)!
-        ])
-        cell.contentConfiguration = content
+        
+        if let currencySections = middleRateCurrencySections {
+            let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
+            
+            content.attributedText = NSMutableAttributedString(string: currency, attributes: [
+                NSAttributedString.Key.font: UIFont(name: "Lato-Regular", size: 17)!
+            ])
+            cell.contentConfiguration = content
+        }
+        
+        if let currencySections = buySellRateCurrencySections {
+            let currency = filteredSections.isEmpty ? currencySections[indexPath.section].currencyStrings[indexPath.row] : filteredSections[indexPath.section].currencyStrings[indexPath.row]
+            
+            content.attributedText = NSMutableAttributedString(string: currency, attributes: [
+                NSAttributedString.Key.font: UIFont(name: "Lato-Regular", size: 17)!
+            ])
+            cell.contentConfiguration = content
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        filteredSections.isEmpty ? currencySections[section].title : filteredSections[section].title
+        if let currencySections = middleRateCurrencySections {
+            return filteredSections.isEmpty ? currencySections[section].title : filteredSections[section].title
+        }
+        
+        if let currencySections = buySellRateCurrencySections {
+            return filteredSections.isEmpty ? currencySections[section].title : filteredSections[section].title
+        }
+        
+        return nil
     }
 }
 
@@ -150,12 +210,17 @@ extension CurrencyViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredSections.removeAll()
-        for section in currencySections {
-            let filteredCurrencyStrings = section.currencyStrings.filter { $0.lowercased().contains(searchText.lowercased()) }
-            if filteredCurrencyStrings.count != 0 {
-                filteredSections.append(CurrencySection(title: section.title, currencyStrings: filteredCurrencyStrings))
+        
+        if let currencySections = middleRateCurrencySections {
+            for section in currencySections {
+                let filteredCurrencyStrings = Array(section.currencyStrings.filter { $0.lowercased().contains(searchText.lowercased()) })
+                if filteredCurrencyStrings.count != 0 {
+                    filteredSections.append(CurrencySection(title: section.title, currencyStrings: filteredCurrencyStrings))
+                }
             }
         }
+        
+        
         sectionsIsFilteredWithNoMatches = !searchText.isEmpty && filteredSections.isEmpty ? true : false
         currencyTableView.reloadData()
     }
