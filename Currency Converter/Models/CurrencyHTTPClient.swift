@@ -9,7 +9,7 @@ import Foundation
 import SwiftyJSON
 
 protocol CurrencyHTTPClientProtocol {
-    func fetchMidpointRate(completion completionHandler: @escaping (Result <MidpointRateModel, CurrencyHTTPClientError>) -> Void)
+    func fetchMidpointRate(completion completionHandler: @escaping (Result <MiddleRateModel, CurrencyHTTPClientError>) -> Void)
     func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void)
 }
 
@@ -21,6 +21,25 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
     }
     
     private let urlSession: URLSession
+    private let defaults = UserDefaults.standard
+    private let calender = Calendar.current
+    
+    enum DefaultsKey: String {
+        case defaultsMiddleRateKey = "MiddleRateLastRefresh"
+        case defaultsBuySellRateKey = "BuySellRateLastRefresh"
+    }
+
+    private func isRefreshRequired(for defaultsKey: DefaultsKey) -> Bool {
+
+        guard let lastRefreshDate = defaults.object(forKey: defaultsKey.rawValue) as? Date else {
+            return true
+        }
+        
+        let currentHour = calender.dateComponents([.hour], from: Date()).hour
+        let lastRefreshHour = calender.dateComponents([.hour], from: lastRefreshDate).hour
+
+        return currentHour != lastRefreshHour ? true : false
+    }
     
     private var apiKey: String {
         var keys: NSDictionary?
@@ -49,45 +68,58 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
         return components.url!
     }
     
-    func fetchMidpointRate(completion completionHandler: @escaping (Result <MidpointRateModel, CurrencyHTTPClientError>) -> Void) {
-        var request = URLRequest(url: url, timeoutInterval: Double.infinity)
-        request.httpMethod = "GET"
-        request.addValue(apiKey, forHTTPHeaderField: "apikey")
+    func fetchMidpointRate(completion completionHandler: @escaping (Result <MiddleRateModel, CurrencyHTTPClientError>) -> Void) {
+        if isRefreshRequired(for: .defaultsMiddleRateKey) {
+        
+            var request = URLRequest(url: url, timeoutInterval: Double.infinity)
+            request.httpMethod = "GET"
+            request.addValue(apiKey, forHTTPHeaderField: "apikey")
 
-        let task = urlSession.dataTask(with: request) { data, response, error in
-            guard let jsonData = data else {
-                completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
-                return
-            }
-            do {
-                let jsonObject = try JSON(data: jsonData)
-                let midpointRateModel = MidpointRateModel(jsonObject: jsonObject)
-                completionHandler(Result.success(midpointRateModel))
-            } catch {
-                completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
-            }
-        }
-
-        task.resume()
-    }
-    
-    func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void) {
-        if let url = URL(string: "https://api.monobank.ua/bank/currency") {
-
-            let task = urlSession.dataTask(with: url) { data, response, error in
+            let task = urlSession.dataTask(with: request) { data, response, error in
                 guard let jsonData = data else {
                     completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
                     return
                 }
                 do {
                     let jsonObject = try JSON(data: jsonData)
-                    let buySellRateModel = BuySellRateModel(jsonObject: jsonObject)
-                    completionHandler(Result.success(buySellRateModel))
+                    let midpointRateModel = MiddleRateModel(jsonObject: jsonObject)
+                    completionHandler(Result.success(midpointRateModel))
                 } catch {
                     completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
                 }
             }
             task.resume()
+            
+            defaults.set(Date(), forKey: DefaultsKey.defaultsMiddleRateKey.rawValue)
+        } else {
+            completionHandler(Result.failure(CurrencyHTTPClientError.dataRefreshError))
+        }
+    }
+    
+    func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void) {
+        if isRefreshRequired(for: .defaultsBuySellRateKey) {
+        
+            if let url = URL(string: "https://api.monobank.ua/bank/currency") {
+
+                let task = urlSession.dataTask(with: url) { data, response, error in
+                    guard let jsonData = data else {
+                        completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
+                        return
+                    }
+                    do {
+                        let jsonObject = try JSON(data: jsonData)
+                        let buySellRateModel = BuySellRateModel(jsonObject: jsonObject)
+                        completionHandler(Result.success(buySellRateModel))
+                    } catch {
+                        completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
+                    }
+                }
+                task.resume()
+            }
+            
+            defaults.set(Date(), forKey: DefaultsKey.defaultsBuySellRateKey.rawValue)
+        } else {
+            completionHandler(Result.failure(CurrencyHTTPClientError.dataRefreshError))
         }
     }
 }
@@ -95,4 +127,5 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
 enum CurrencyHTTPClientError: Error {
     case urlSessionError
     case parseJSONError
+    case dataRefreshError
 }
