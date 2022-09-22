@@ -28,11 +28,14 @@ class MainViewController: UIViewController {
     
     private let currencyHTTPClient = MockCurrencyHTTPClient()
     private let currencyConverter = CurrencyConverter()
-    private var midpointRateCurrencySections: Results<MiddleRateCurrencySectionData>?
+    private var middleRateCurrencies: Results<MiddleRateCurrencyData>?
+    private var middleRateCurrenciesHistorical: Results<MiddleRateCurrencyHistoricalData>?
+    private var buySellRateCurrencies: Results<BuySellRateCurrencyData>?
+    private var middleRateCurrencySections: Results<MiddleRateCurrencySectionData>?
+    private var middleRateCurrencySectionsHistorical: Results<MiddleRateCurrencySectionHistoricalData>?
     private var buySellRateCurrencySections: Results<BuySellRateCurrencySectionData>?
-    private var midpointCurrencyRates: Results<MiddleRateCurrencyData>?
-    private var buySellCurrencyRates: Results<BuySellRateCurrencyData>?
     private var middleRateCurrencyDate: Results<MiddleRateCurrencyDateData>?
+    private var middleRateCurrencyDateHistorical: Results<MiddleRateCurrencyDateHistoricalData>?
     private var buySellRateCurrencyDate: Results<BuySellRateCurrencyDateData>?
     private var neededForRateCalculation: [UIButton: UITextField] = [:]
     private let realm = try! Realm()
@@ -72,7 +75,7 @@ class MainViewController: UIViewController {
                         fatalError("Error saving realm data.")
                     }
                 }
-                self?.midpointCurrencyRates = self?.realm.objects(MiddleRateCurrencyData.self)
+                self?.middleRateCurrencies = self?.realm.objects(MiddleRateCurrencyData.self)
                 
                 for currencySection in midpointRateModel.currencySections {
                     do {
@@ -87,7 +90,7 @@ class MainViewController: UIViewController {
                         fatalError("Error saving realm data.")
                     }
                 }
-                self?.midpointRateCurrencySections = self?.realm.objects(MiddleRateCurrencySectionData.self)
+                self?.middleRateCurrencySections = self?.realm.objects(MiddleRateCurrencySectionData.self)
                 
                 do {
                     try self?.realm.write {
@@ -109,14 +112,20 @@ class MainViewController: UIViewController {
     }
     
     private func setTitleToUpdateInfoLabel(dateUpdated: Date?) {
-        if let date = dateUpdated?.formatted(date: .long, time: .shortened) {
-            let titleText = "Last Updated\n\(date)"
+        if let date = dateUpdated {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "d MMMM yyyy HH:mm"
+            let dateFormatted = dateFormatter.string(from: date)
+            
+            let titleText = "Last Updated\n\(dateFormatted)"
             let attrString = NSMutableAttributedString(string: titleText)
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 7.0
             attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: titleText.count))
             updateInfoLabel.attributedText = attrString
         }
+        
+            
     }
     
     @objc private func didTapSegment(_ sender: UISegmentedControl) {
@@ -141,7 +150,7 @@ class MainViewController: UIViewController {
                                 fatalError("Error saving realm data.")
                             }
                         }
-                        self?.buySellCurrencyRates = self?.realm.objects(BuySellRateCurrencyData.self)
+                        self?.buySellRateCurrencies = self?.realm.objects(BuySellRateCurrencyData.self)
                         
                         for currencySection in buySellRateModel.currencySections {
                             do {
@@ -300,7 +309,7 @@ class MainViewController: UIViewController {
         currencyOperationSegmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         currencyOperationSegmentedControl.selectedSegmentIndex = 0
-        currencyOperationSegmentedControl.addTarget(self, action: #selector(didTapSegment), for: .valueChanged)
+        currencyOperationSegmentedControl.addTarget(self, action: #selector(didTapSegment(_:)), for: .valueChanged)
     }
     
     private func configureCurrencyRatesStackView() {
@@ -336,7 +345,7 @@ class MainViewController: UIViewController {
         thirdCurrencyButton.configuration?.title = "UAH"
         [baseCurrencyButton, secondCurrencyButton, thirdCurrencyButton].forEach {
             $0.contentHorizontalAlignment = .leading
-            $0.addTarget(self, action: #selector(didTapAddCurrency), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(didTapAddCurrency(_:)), for: .touchUpInside)
         }
         
         let secondCurrencyTextField = UITextField()
@@ -358,7 +367,7 @@ class MainViewController: UIViewController {
         baseCurrencyTextField.font = UIFont(name: "Lato-Regular", size: 14.0)
         baseCurrencyTextField.keyboardType = .decimalPad
         baseCurrencyTextField.delegate = self
-        baseCurrencyTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        baseCurrencyTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         baseCurrencyTextField.clearButtonMode = .always
         
         
@@ -401,7 +410,7 @@ class MainViewController: UIViewController {
             return outgoing
         }
         addCurrencyButton.configuration = confiquration
-        addCurrencyButton.addTarget(self, action: #selector(didTapAddCurrency), for: .touchUpInside)
+        addCurrencyButton.addTarget(self, action: #selector(didTapAddCurrency(_:)), for: .touchUpInside)
     }
     
     private func configureShareButton() {
@@ -460,6 +469,7 @@ class MainViewController: UIViewController {
         lastYearRateButton.layer.borderWidth = 1.0
         lastYearRateButton.layer.borderColor = UIColor.systemBlue.cgColor
         lastYearRateButton.layer.cornerRadius = 14.0
+        lastYearRateButton.addTarget(self, action: #selector(didTapLastYearRateButton(_:)), for: .touchUpInside)
     }
     
     //MARK: - Handle Adding Additional Currencies
@@ -481,7 +491,7 @@ class MainViewController: UIViewController {
         confiquration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         additionalCurrencyButton.configuration = confiquration
         additionalCurrencyButton.contentHorizontalAlignment = .leading
-        additionalCurrencyButton.addTarget(self, action: #selector(didTapAddCurrency), for: .touchUpInside)
+        additionalCurrencyButton.addTarget(self, action: #selector(didTapAddCurrency(_:)), for: .touchUpInside)
         
         let additionalCurrencyTextField = UITextField()
         additionalCurrencyTextField.widthAnchor.constraint(equalToConstant: 206.0).isActive = true
@@ -502,7 +512,7 @@ class MainViewController: UIViewController {
         confiquration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         deleteCurrencyButton.configuration = configuration
         deleteCurrencyButton.contentHorizontalAlignment = .trailing
-        deleteCurrencyButton.addTarget(self, action: #selector(didTapDeleteCurrency), for: .touchUpInside)
+        deleteCurrencyButton.addTarget(self, action: #selector(didTapDeleteCurrency(_:)), for: .touchUpInside)
         additionalCurrencyTextField.rightView = deleteCurrencyButton
         additionalCurrencyTextField.rightViewMode = .always
 
@@ -534,7 +544,7 @@ class MainViewController: UIViewController {
         
         switch currencyOperationSegmentedControl.selectedSegmentIndex {
         case 0:
-            currencyViewController = CurrencyViewController(sections: midpointRateCurrencySections)
+            currencyViewController = CurrencyViewController(sections: middleRateCurrencySections)
         default:
             currencyViewController = CurrencyViewController(sections: buySellRateCurrencySections)
         }
@@ -601,6 +611,62 @@ class MainViewController: UIViewController {
     }
     
     
+    //MARK: - Handle Fetching Historical Rate
+
+    @objc private func didTapLastYearRateButton(_ sender: UIButton) {
+        currencyHTTPClient.fetchMiddleRateHistorical { [weak self] result in
+            switch result {
+            case .success(let middleRateHistoricalModel):
+                for currency in middleRateHistoricalModel.currencyRates {
+                    do {
+                        try self?.realm.write {
+                            let data = MiddleRateCurrencyHistoricalData(currencyCode: currency.currencyCode,
+                                                              baseCurrency: currency.baseCurrency,
+                                                              middleRate: currency.middleRate,
+                                                              buyRate: nil,
+                                                              sellRate: nil,
+                                                              currencyString: currency.currencyString)
+                            self?.realm.add(data)
+                        }
+                    } catch {
+                        fatalError("Error saving realm data.")
+                    }
+                }
+                self?.middleRateCurrenciesHistorical = self?.realm.objects(MiddleRateCurrencyHistoricalData.self)
+                
+                for currencySection in middleRateHistoricalModel.currencySections {
+                    do {
+                        try self?.realm.write {
+                            let data = MiddleRateCurrencySectionHistoricalData(title: currencySection.title)
+                            for currencyString in currencySection.currencyStrings {
+                                data.currencyStrings.append(currencyString)
+                            }
+                            self?.realm.add(data)
+                        }
+                    } catch {
+                        fatalError("Error saving realm data.")
+                    }
+                }
+                self?.middleRateCurrencySectionsHistorical = self?.realm.objects(MiddleRateCurrencySectionHistoricalData.self)
+                
+                do {
+                    try self?.realm.write {
+                        let data = MiddleRateCurrencyDateHistoricalData(dateUpdated: middleRateHistoricalModel.dateUpdated)
+                        self?.realm.add(data)
+                    }
+                } catch {
+                    fatalError("Error saving realm data.")
+                }
+                self?.middleRateCurrencyDateHistorical = self?.realm.objects(MiddleRateCurrencyDateHistoricalData.self)
+                self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDateHistorical?.first?.dateUpdated)
+                
+            case .failure(_):
+                print("3")
+            }
+        }
+    }
+    
+    
     //MARK: - Handle Rate Calculation
     
     func convertCurrency(_ currency: String?, amount: Double?) {
@@ -610,24 +676,24 @@ class MainViewController: UIViewController {
 
                 switch currencyOperationSegmentedControl.selectedSegmentIndex {
                 case 1:
-                    if let additionalBuySellCurrency = buySellCurrencyRates?.first(where: { $0.currencyCode == button.configuration?.title }),
-                       let baseBuySellCurrency = buySellCurrencyRates?.first(where: { $0.currencyCode == currency }) {
+                    if let additionalBuySellCurrency = buySellRateCurrencies?.first(where: { $0.currencyCode == button.configuration?.title }),
+                       let baseBuySellCurrency = buySellRateCurrencies?.first(where: { $0.currencyCode == currency }) {
                         if let additional = additionalBuySellCurrency.sellRate, let base = baseBuySellCurrency.sellRate {
                             let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
                             neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
                         }
                     }
                 case 2:
-                    if let additionalBuySellCurrency = buySellCurrencyRates?.first(where: { $0.currencyCode == button.configuration?.title }),
-                       let baseBuySellCurrency = buySellCurrencyRates?.first(where: { $0.currencyCode == currency }) {
+                    if let additionalBuySellCurrency = buySellRateCurrencies?.first(where: { $0.currencyCode == button.configuration?.title }),
+                       let baseBuySellCurrency = buySellRateCurrencies?.first(where: { $0.currencyCode == currency }) {
                         if let additional = additionalBuySellCurrency.buyRate, let base = baseBuySellCurrency.buyRate {
                             let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
                             neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
                         }
                     }
                 default:
-                    if let additionalMidpointCurrency = midpointCurrencyRates?.first(where: { $0.currencyCode == button.configuration?.title }),
-                       let baseMidpointCurrency = midpointCurrencyRates?.first(where: { $0.currencyCode == currency }) {
+                    if let additionalMidpointCurrency = middleRateCurrencies?.first(where: { $0.currencyCode == button.configuration?.title }),
+                       let baseMidpointCurrency = middleRateCurrencies?.first(where: { $0.currencyCode == currency }) {
                         if let additional = additionalMidpointCurrency.middleRate, let base = baseMidpointCurrency.middleRate {
                             let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
                             neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
