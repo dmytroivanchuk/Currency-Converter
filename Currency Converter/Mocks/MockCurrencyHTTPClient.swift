@@ -17,6 +17,7 @@ class MockCurrencyHTTPClient: CurrencyHTTPClientProtocol {
     enum MockDefaultsKey: String {
         case mockDefaultsMiddleRateKey = "MockMiddleRateLastRefresh"
         case mockDefaultsBuySellRateKey = "MockBuySellRateLastRefresh"
+        case mockDefaultsMiddleRateHistoricalKey = "MockMiddleRateHistoricalLastRefresh"
     }
 
     private func isRefreshRequired(for defaultsKey: MockDefaultsKey) -> Bool {
@@ -68,6 +69,27 @@ class MockCurrencyHTTPClient: CurrencyHTTPClientProtocol {
                 completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
             }
             defaults.set(Date(), forKey: MockDefaultsKey.mockDefaultsBuySellRateKey.rawValue)
+        } else {
+            completionHandler(Result.failure(CurrencyHTTPClientError.dataRefreshError))
+        }
+    }
+    
+    func fetchMiddleRateHistorical(completion completionHandler: @escaping (Result <MiddleRateHistoricalModel, CurrencyHTTPClientError>) -> Void) {
+        
+        if isRefreshRequired(for: .mockDefaultsMiddleRateHistoricalKey) {
+            if let jsonPath = Bundle.main.url(forResource: "historicalRateAPIResponseExample", withExtension: "json") {
+                do {
+                    let jsonData = try Data(contentsOf: jsonPath)
+                    let jsonObject = try JSON(data: jsonData)
+                    let middleRateHistoricalModel = MiddleRateHistoricalModel(jsonObject: jsonObject)
+                    completionHandler(Result.success(middleRateHistoricalModel))
+                } catch {
+                    completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
+                }
+            } else {
+                completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
+            }
+            defaults.set(Date(), forKey: MockDefaultsKey.mockDefaultsMiddleRateKey.rawValue)
         } else {
             completionHandler(Result.failure(CurrencyHTTPClientError.dataRefreshError))
         }

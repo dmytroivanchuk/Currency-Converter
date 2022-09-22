@@ -11,6 +11,7 @@ import SwiftyJSON
 protocol CurrencyHTTPClientProtocol {
     func fetchMidpointRate(completion completionHandler: @escaping (Result <MiddleRateModel, CurrencyHTTPClientError>) -> Void)
     func fetchBuySellRate(completion completionHandler: @escaping (Result <BuySellRateModel, CurrencyHTTPClientError>) -> Void)
+    func fetchMiddleRateHistorical(completion completionHandler: @escaping (Result <MiddleRateHistoricalModel, CurrencyHTTPClientError>) -> Void)
 }
 
 // create WeatherManager struct, responsible for fetching current weather data using public API, based on user's coordinates
@@ -27,6 +28,7 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
     enum DefaultsKey: String {
         case defaultsMiddleRateKey = "MiddleRateLastRefresh"
         case defaultsBuySellRateKey = "BuySellRateLastRefresh"
+        case defaultsMiddleRateHistoricalKey = "MiddleRateHistoricalLastRefresh"
     }
 
     private func isRefreshRequired(for defaultsKey: DefaultsKey) -> Bool {
@@ -65,6 +67,26 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
         components.queryItems = [
             URLQueryItem(name: "base", value: "USD")
         ]
+        return components.url!
+    }
+    
+    private var urlHistorical: URL {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.apilayer.com"
+        components.queryItems = [
+            URLQueryItem(name: "base", value: "USD")
+        ]
+        
+        let currentDate = Date()
+        let yearBackDate = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)
+        if let yearBack = yearBackDate {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let formattedYearBackDate = dateFormatter.string(from: yearBack)
+            components.path = "/exchangerates_data/\(formattedYearBackDate)"
+        }
+        
         return components.url!
     }
     
@@ -115,9 +137,37 @@ struct CurrencyHTTPClient: CurrencyHTTPClientProtocol {
                     }
                 }
                 task.resume()
+                
+                defaults.set(Date(), forKey: DefaultsKey.defaultsBuySellRateKey.rawValue)
             }
+        } else {
+            completionHandler(Result.failure(CurrencyHTTPClientError.dataRefreshError))
+        }
+    }
+    
+    func fetchMiddleRateHistorical(completion completionHandler: @escaping (Result <MiddleRateHistoricalModel, CurrencyHTTPClientError>) -> Void) {
+        if isRefreshRequired(for: .defaultsMiddleRateHistoricalKey) {
             
-            defaults.set(Date(), forKey: DefaultsKey.defaultsBuySellRateKey.rawValue)
+            var request = URLRequest(url: urlHistorical, timeoutInterval: Double.infinity)
+            request.httpMethod = "GET"
+            request.addValue(apiKey, forHTTPHeaderField: "apikey")
+
+            let task = urlSession.dataTask(with: request) { data, response, error in
+                guard let jsonData = data else {
+                    completionHandler(Result.failure(CurrencyHTTPClientError.urlSessionError))
+                    return
+                }
+                do {
+                    let jsonObject = try JSON(data: jsonData)
+                    let middleRateHistoricalModel = MiddleRateHistoricalModel(jsonObject: jsonObject)
+                    completionHandler(Result.success(middleRateHistoricalModel))
+                } catch {
+                    completionHandler(Result.failure(CurrencyHTTPClientError.parseJSONError))
+                }
+            }
+            task.resume()
+            
+            defaults.set(Date(), forKey: DefaultsKey.defaultsMiddleRateHistoricalKey.rawValue)
         } else {
             completionHandler(Result.failure(CurrencyHTTPClientError.dataRefreshError))
         }
