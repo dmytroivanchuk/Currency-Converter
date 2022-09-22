@@ -23,6 +23,10 @@
 		023F8DBE28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */; };
 		023F8DC028DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */; };
 		023F8DC228DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */; };
+		023F8DC428DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DC328DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift */; };
+		023F8DC628DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DC528DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift */; };
+		023F8DC828DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DC728DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift */; };
+		023F8DCA28DC61B1000F8A6D /* MiddleRateHistoricalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F8DC928DC61B1000F8A6D /* MiddleRateHistoricalModel.swift */; };
 		024B126428D8C5D300E06819 /* MiddleRateCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */; };
 		0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */; };
 		02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D7CE8128C5E002000309AF /* AppDelegate.swift */; };
@@ -57,6 +61,10 @@
 		023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySellRateCurrencySectionData.swift; sourceTree = "<group>"; };
 		023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencyDateData.swift; sourceTree = "<group>"; };
 		023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySellRateCurrencyDateData.swift; sourceTree = "<group>"; };
+		023F8DC328DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencyHistoricalData.swift; sourceTree = "<group>"; };
+		023F8DC528DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencyDateHistoricalData.swift; sourceTree = "<group>"; };
+		023F8DC728DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencySectionHistoricalData.swift; sourceTree = "<group>"; };
+		023F8DC928DC61B1000F8A6D /* MiddleRateHistoricalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateHistoricalModel.swift; sourceTree = "<group>"; };
 		024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateCurrencyData.swift; sourceTree = "<group>"; };
 		0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		02D7CE7E28C5E002000309AF /* Currency Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +129,7 @@
 				0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */,
 				02F9AD2828D503C400925E5A /* MiddleRateModel.swift */,
 				02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */,
+				023F8DC928DC61B1000F8A6D /* MiddleRateHistoricalModel.swift */,
 				02F9AD2428D4D73200925E5A /* Currency.swift */,
 				02F9AD2628D4E1B500925E5A /* CurrencySection.swift */,
 				02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */,
@@ -130,6 +139,9 @@
 				023F8DBB28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift */,
 				023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */,
 				023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */,
+				023F8DC328DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift */,
+				023F8DC528DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift */,
+				023F8DC728DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -278,16 +290,20 @@
 				0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */,
 				02F9AD2728D4E1B500925E5A /* CurrencySection.swift in Sources */,
 				023F8DC228DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift in Sources */,
+				023F8DCA28DC61B1000F8A6D /* MiddleRateHistoricalModel.swift in Sources */,
 				02F9AD2028D49C6100925E5A /* BuySellRateModel.swift in Sources */,
 				024B126428D8C5D300E06819 /* MiddleRateCurrencyData.swift in Sources */,
 				023F8DBC28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift in Sources */,
 				023F8DC028DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift in Sources */,
+				023F8DC428DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift in Sources */,
 				023F8DBE28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift in Sources */,
 				0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */,
 				02F9AD2528D4D73200925E5A /* Currency.swift in Sources */,
 				0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */,
+				023F8DC628DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift in Sources */,
 				0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */,
 				02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */,
+				023F8DC828DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift in Sources */,
 				023F8DBA28D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift in Sources */,
 				0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */,
 				02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */,
