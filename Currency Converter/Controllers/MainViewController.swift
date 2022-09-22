@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
     private let updateInfoLabel = UILabel()
     private let lastYearRateButton = UIButton()
     
-    private let currencyHTTPClient = MockCurrencyHTTPClient()
+    private let currencyHTTPClient = MockHTTPClient()
     private let currencyConverter = CurrencyConverter()
     private var middleRateCurrencies: Results<MiddleRateCurrencyData>?
     private var middleRateCurrenciesHistorical: Results<MiddleRateCurrencyHistoricalData>?
@@ -57,10 +57,10 @@ class MainViewController: UIViewController {
         configureUpdateInfoLabel()
         configureLastYearRateButton()
         print(realm.configuration.fileURL)
-        currencyHTTPClient.fetchMidpointRate { [weak self] result in
+        currencyHTTPClient.fetchMiddleRate { [weak self] result in
             switch result {
-            case .success(let midpointRateModel):
-                for currency in midpointRateModel.currencyRates {
+            case .success(let middleRateModel):
+                for currency in middleRateModel.currencies {
                     do {
                         try self?.realm.write {
                             let data = MiddleRateCurrencyData(currencyCode: currency.currencyCode,
@@ -77,7 +77,7 @@ class MainViewController: UIViewController {
                 }
                 self?.middleRateCurrencies = self?.realm.objects(MiddleRateCurrencyData.self)
                 
-                for currencySection in midpointRateModel.currencySections {
+                for currencySection in middleRateModel.currencySections {
                     do {
                         try self?.realm.write {
                             let data = MiddleRateCurrencySectionData(title: currencySection.title)
@@ -94,7 +94,7 @@ class MainViewController: UIViewController {
                 
                 do {
                     try self?.realm.write {
-                        let data = MiddleRateCurrencyDateData(dateUpdated: midpointRateModel.dateUpdated)
+                        let data = MiddleRateCurrencyDateData(dateUpdated: middleRateModel.dateUpdated)
                         self?.realm.add(data)
                     }
                 } catch {
@@ -107,8 +107,6 @@ class MainViewController: UIViewController {
                 print("1")
             }
         }
-        
-        
     }
     
     private func setTitleToUpdateInfoLabel(dateUpdated: Date?) {
@@ -129,13 +127,13 @@ class MainViewController: UIViewController {
     }
     
     @objc private func didTapSegment(_ sender: UISegmentedControl) {
-        let frameAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
+        let animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
             switch sender.selectedSegmentIndex {
             case 1, 2:
                 self.currencyHTTPClient.fetchBuySellRate { [weak self] result in
                     switch result {
                     case .success(let buySellRateModel):
-                        for currency in buySellRateModel.currencyRates {
+                        for currency in buySellRateModel.currencies {
                             do {
                                 try self?.realm.write {
                                     let data = BuySellRateCurrencyData(currencyCode: currency.currencyCode,
@@ -179,7 +177,7 @@ class MainViewController: UIViewController {
                         self?.setTitleToUpdateInfoLabel(dateUpdated: self?.buySellRateCurrencyDate?.first?.dateUpdated)
                         
                     case .failure(_):
-                        print("2")
+                        print("3")
                     }
                 }
                 
@@ -228,7 +226,7 @@ class MainViewController: UIViewController {
                 }
             }
         }
-        frameAnimator.startAnimation()
+        animator.startAnimation()
     }
     
     
@@ -517,7 +515,6 @@ class MainViewController: UIViewController {
         additionalCurrencyTextField.rightViewMode = .always
 
         
-        
         neededForRateCalculation[additionalCurrencyButton] = additionalCurrencyTextField
         
         
@@ -596,7 +593,7 @@ class MainViewController: UIViewController {
         for (key, value) in neededForRateCalculation where value == sender.superview {
             self.neededForRateCalculation.removeValue(forKey: key)
         }
-        let frameAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
+        let animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.6) {
             sender.superview?.superview?.removeFromSuperview()
             self.rateCalculationView.constraints.forEach {
                 if $0.identifier == "rateCalculationViewHeightConstraint" {
@@ -607,7 +604,7 @@ class MainViewController: UIViewController {
             self.mainScreenContentView.frame.size.height -= 60.0
             self.mainScreenScrollView.contentSize.height -= 60.0
         }
-        frameAnimator.startAnimation()
+        animator.startAnimation()
     }
     
     
@@ -661,7 +658,7 @@ class MainViewController: UIViewController {
                 self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDateHistorical?.first?.dateUpdated)
                 
             case .failure(_):
-                print("3")
+                print("2")
             }
         }
     }
@@ -669,8 +666,7 @@ class MainViewController: UIViewController {
     
     //MARK: - Handle Rate Calculation
     
-    func convertCurrency(_ currency: String?, amount: Double?) {
-        
+    private func convertCurrency(_ currency: String?, amount: Double?) {
         if let currency = currency, let amount = amount {
             for button in neededForRateCalculation.keys {
 
@@ -716,7 +712,6 @@ extension MainViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        
         if let input = textField.text {
             if !string.isEmpty {
                 if !NSPredicate(format: "SELF MATCHES %@", #"^[\d\.]+"#).evaluate(with: string) {
@@ -736,8 +731,6 @@ extension MainViewController: UITextFieldDelegate {
         if let input = textField.text {
             convertCurrency(baseCurrencyButton.configuration?.title, amount: Double(input))
         }
-        
-        
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
