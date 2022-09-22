@@ -10,11 +10,11 @@
 		0226676F28C637D800A3F800 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676C28C637D800A3F800 /* Lato-Black.ttf */; };
 		0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676D28C637D800A3F800 /* Lato-Regular.ttf */; };
 		0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0226676E28C637D800A3F800 /* Lato-Bold.ttf */; };
-		0226677E28C89D5200A3F800 /* historicalRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */; };
-		0226678028C89D9A00A3F800 /* midpointRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677F28C89D9A00A3F800 /* midpointRateAPIResponseExample.json */; };
-		0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */; };
+		0226677E28C89D5200A3F800 /* middleRateHistoricalAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677D28C89D5200A3F800 /* middleRateHistoricalAPIResponseExample.json */; };
+		0226678028C89D9A00A3F800 /* middleRateAPIResponseExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0226677F28C89D9A00A3F800 /* middleRateAPIResponseExample.json */; };
+		0226678428C8AB2C00A3F800 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678328C8AB2C00A3F800 /* HTTPClient.swift */; };
 		0226678628C8B78F00A3F800 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0226678528C8B78F00A3F800 /* Keys.plist */; };
-		0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */; };
+		0226678B28C8BD0100A3F800 /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678A28C8BD0100A3F800 /* MockHTTPClient.swift */; };
 		0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */; };
 		0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226679228CBAC5C00A3F800 /* MainViewController.swift */; };
 		0226679528CBB31400A3F800 /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0226679428CBB31400A3F800 /* MainScreen.storyboard */; };
@@ -48,11 +48,11 @@
 		0226676C28C637D800A3F800 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		0226676D28C637D800A3F800 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		0226676E28C637D800A3F800 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
-		0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = historicalRateAPIResponseExample.json; sourceTree = "<group>"; };
-		0226677F28C89D9A00A3F800 /* midpointRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = midpointRateAPIResponseExample.json; sourceTree = "<group>"; };
-		0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyHTTPClient.swift; sourceTree = "<group>"; };
+		0226677D28C89D5200A3F800 /* middleRateHistoricalAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = middleRateHistoricalAPIResponseExample.json; sourceTree = "<group>"; };
+		0226677F28C89D9A00A3F800 /* middleRateAPIResponseExample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = middleRateAPIResponseExample.json; sourceTree = "<group>"; };
+		0226678328C8AB2C00A3F800 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		0226678528C8B78F00A3F800 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrencyHTTPClient.swift; sourceTree = "<group>"; };
+		0226678A28C8BD0100A3F800 /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientFactory.swift; sourceTree = "<group>"; };
 		0226679228CBAC5C00A3F800 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0226679428CBB31400A3F800 /* MainScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainScreen.storyboard; sourceTree = "<group>"; };
@@ -126,22 +126,22 @@
 		0226677B28C89CC800A3F800 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0226678328C8AB2C00A3F800 /* CurrencyHTTPClient.swift */,
-				02F9AD2828D503C400925E5A /* MiddleRateModel.swift */,
-				02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */,
-				023F8DC928DC61B1000F8A6D /* MiddleRateHistoricalModel.swift */,
+				0226678328C8AB2C00A3F800 /* HTTPClient.swift */,
+				02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */,
 				02F9AD2428D4D73200925E5A /* Currency.swift */,
 				02F9AD2628D4E1B500925E5A /* CurrencySection.swift */,
-				02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */,
+				02F9AD2828D503C400925E5A /* MiddleRateModel.swift */,
+				023F8DC928DC61B1000F8A6D /* MiddleRateHistoricalModel.swift */,
+				02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */,
 				024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */,
-				023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */,
 				023F8DB928D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift */,
+				023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */,
+				023F8DC328DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift */,
+				023F8DC728DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift */,
+				023F8DC528DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift */,
 				023F8DBB28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift */,
 				023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */,
 				023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */,
-				023F8DC328DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift */,
-				023F8DC528DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift */,
-				023F8DC728DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -151,10 +151,10 @@
 			children = (
 				02D7CE8A28C5E003000309AF /* Assets.xcassets */,
 				0226677228C637F600A3F800 /* Fonts */,
-				0226677F28C89D9A00A3F800 /* midpointRateAPIResponseExample.json */,
-				0226677D28C89D5200A3F800 /* historicalRateAPIResponseExample.json */,
-				0226678528C8B78F00A3F800 /* Keys.plist */,
+				0226677F28C89D9A00A3F800 /* middleRateAPIResponseExample.json */,
+				0226677D28C89D5200A3F800 /* middleRateHistoricalAPIResponseExample.json */,
 				02F9AD1B28D4838400925E5A /* buySellRateAPIResponseExample.json */,
+				0226678528C8B78F00A3F800 /* Keys.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 		0226678928C8BCB900A3F800 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				0226678A28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift */,
+				0226678A28C8BD0100A3F800 /* MockHTTPClient.swift */,
 				0226678E28C8BFB700A3F800 /* HTTPClientFactory.swift */,
 			);
 			path = Mocks;
@@ -271,8 +271,8 @@
 				0226677128C637D800A3F800 /* Lato-Bold.ttf in Resources */,
 				02D7CE8E28C5E003000309AF /* LaunchScreen.storyboard in Resources */,
 				0226677028C637D800A3F800 /* Lato-Regular.ttf in Resources */,
-				0226677E28C89D5200A3F800 /* historicalRateAPIResponseExample.json in Resources */,
-				0226678028C89D9A00A3F800 /* midpointRateAPIResponseExample.json in Resources */,
+				0226677E28C89D5200A3F800 /* middleRateHistoricalAPIResponseExample.json in Resources */,
+				0226678028C89D9A00A3F800 /* middleRateAPIResponseExample.json in Resources */,
 				02F9AD1C28D4838400925E5A /* buySellRateAPIResponseExample.json in Resources */,
 				0226678628C8B78F00A3F800 /* Keys.plist in Resources */,
 				02D7CE8B28C5E003000309AF /* Assets.xcassets in Resources */,
@@ -299,9 +299,9 @@
 				023F8DBE28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift in Sources */,
 				0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */,
 				02F9AD2528D4D73200925E5A /* Currency.swift in Sources */,
-				0226678428C8AB2C00A3F800 /* CurrencyHTTPClient.swift in Sources */,
+				0226678428C8AB2C00A3F800 /* HTTPClient.swift in Sources */,
 				023F8DC628DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift in Sources */,
-				0226678B28C8BD0100A3F800 /* MockCurrencyHTTPClient.swift in Sources */,
+				0226678B28C8BD0100A3F800 /* MockHTTPClient.swift in Sources */,
 				02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */,
 				023F8DC828DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift in Sources */,
 				023F8DBA28D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift in Sources */,
