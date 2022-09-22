@@ -1,18 +1,20 @@
 //
-//  MidpointRateModel.swift
+//  MiddleRateModel.swift
 //  Currency Converter
 //
 //  Created by Dmytro Ivanchuk on 16.09.2022.
 //
 
+import Foundation
 import SwiftyJSON
 
-struct MidpointRateModel {
-    let currencyRates: [CurrencyRate]
+struct MiddleRateModel {
+    let currencies: [Currency]
+    let dateUpdated: Date
     var currencySections: [CurrencySection] {
         var currencyCodeArray: [String] = []
-        for currencyRate in currencyRates {
-            currencyCodeArray.append(currencyRate.currencyString)
+        for currency in currencies {
+            currencyCodeArray.append(currency.currencyString)
         }
         let groupedDictionary = Dictionary(grouping: currencyCodeArray, by: { String($0.first!) })
         let dictionaryKeys = groupedDictionary.keys.sorted()
@@ -21,10 +23,11 @@ struct MidpointRateModel {
     }
     
     init(jsonObject: JSON) {
-        var currencyRates: [CurrencyRate] = []
+        var currencies: [Currency] = []
         for (key,subJson):(String, JSON) in jsonObject["rates"] {
-            currencyRates.append(CurrencyRate(currencyCode: key, baseCurrency: "USD", rateMidpoint: subJson.double, rateBuy: nil, rateSell: nil))
+            currencies.append(Currency(currencyCode: key, baseCurrency: "USD", middleRate: subJson.double, buyRate: nil, sellRate: nil))
         }
-        self.currencyRates = currencyRates
+        self.currencies = currencies
+        dateUpdated = Date(timeIntervalSince1970: jsonObject["timestamp"].doubleValue)
     }
 }

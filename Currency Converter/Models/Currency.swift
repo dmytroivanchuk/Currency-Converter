@@ -1,20 +1,18 @@
 //
-//  CurrencyRate.swift
+//  Currency.swift
 //  Currency Converter
 //
 //  Created by Dmytro Ivanchuk on 16.09.2022.
 //
 
-import Foundation
-
-struct CurrencyRate {
+struct Currency {
     let currencyCode: String
     let baseCurrency: String
-    let rateMidpoint: Double?
-    let rateBuy: Double?
-    let rateSell: Double?
+    let middleRate: Double?
+    let buyRate: Double?
+    let sellRate: Double?
     var currencyString: String {
-        if let currencyName = CurrencyRate.currencyCodeName[currencyCode] {
+        if let currencyName = Currency.currencyCodeName[currencyCode] {
             return currencyCode + " - " + currencyName
         } else {
             return ""
