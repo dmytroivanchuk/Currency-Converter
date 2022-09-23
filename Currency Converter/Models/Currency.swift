@@ -15,7 +15,7 @@ struct Currency {
         if let currencyName = Currency.currencyCodeName[currencyCode] {
             return currencyCode + " - " + currencyName
         } else {
-            return ""
+            return "unnamed"
         }
     }
     
@@ -194,6 +194,7 @@ struct Currency {
         "CLF": "Unidad de Fomento",
         "CUC": "Peso Convertible",
         "KPW": "North Korean Won",
-        "SVC": "El Salvador Colon"
+        "SVC": "El Salvador Colon",
+        "VEF": "Venezuelan Bolívar"
     ]
 }

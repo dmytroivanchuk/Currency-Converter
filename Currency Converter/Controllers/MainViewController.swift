@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
     private var middleRateCurrencyDateHistorical: Results<MiddleRateCurrencyDateHistoricalData>?
     private var buySellRateCurrencyDate: Results<BuySellRateCurrencyDateData>?
     private var neededForRateCalculation: [UIButton: UITextField] = [:]
+    private var inHistoricalRatesViewMode = false
     private let realm = try! Realm()
     
     override func viewDidLoad() {
@@ -47,7 +48,8 @@ class MainViewController: UIViewController {
         configureNavigationItem()
         configureMainScreenScrollView()
         confiqureMainScreenContentView()
-        confiqureBackgroundImageView()
+//        confiqureBackgroundImageView()
+        configureBackgroundShapes(color: .systemBlue)
         configureRateCalculationView()
         configureCurrencyOperationSegmentedControl()
         configureCurrencyRatesStackView()
@@ -103,8 +105,16 @@ class MainViewController: UIViewController {
                 self?.middleRateCurrencyDate = self?.realm.objects(MiddleRateCurrencyDateData.self)
                 self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDate?.first?.dateUpdated)
                 
-            case .failure(_):
-                print("1")
+            case .failure(let error):
+                switch error {
+                case .dataRefreshError:
+                    self?.middleRateCurrencies = self?.realm.objects(MiddleRateCurrencyData.self)
+                    self?.middleRateCurrencySections = self?.realm.objects(MiddleRateCurrencySectionData.self)
+                    self?.middleRateCurrencyDate = self?.realm.objects(MiddleRateCurrencyDateData.self)
+                    self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDate?.first?.dateUpdated)
+                default:
+                    print(1)
+                }
             }
         }
     }
@@ -259,14 +269,40 @@ class MainViewController: UIViewController {
         mainScreenContentView.frame.size = mainScreenScrollView.frame.size
     }
     
-    private func confiqureBackgroundImageView() {
-        mainScreenContentView.addSubview(backgroundImageView)
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.topAnchor.constraint(equalTo: mainScreenContentView.topAnchor).isActive = true
-        backgroundImageView.leadingAnchor.constraint(equalTo: mainScreenContentView.leadingAnchor).isActive = true
-        backgroundImageView.trailingAnchor.constraint(equalTo: mainScreenContentView.trailingAnchor).isActive = true
-        backgroundImageView.heightAnchor.constraint(equalToConstant: 274.0).isActive = true
-        backgroundImageView.image = UIImage(named: "header")
+//    private func confiqureBackgroundImageView() {
+//        mainScreenContentView.addSubview(backgroundImageView)
+//        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+//        backgroundImageView.topAnchor.constraint(equalTo: mainScreenContentView.topAnchor).isActive = true
+//        backgroundImageView.leadingAnchor.constraint(equalTo: mainScreenContentView.leadingAnchor).isActive = true
+//        backgroundImageView.trailingAnchor.constraint(equalTo: mainScreenContentView.trailingAnchor).isActive = true
+//        backgroundImageView.heightAnchor.constraint(equalToConstant: 274.0).isActive = true
+//        backgroundImageView.image = UIImage(named: "header")
+//    }
+    
+    private func configureBackgroundShapes(color: UIColor) {
+        let rectangle = UIBezierPath(rect: CGRect(x: -118.0, y: -295.5, width: 537.0, height: 400.0))
+        let rectangleShape = CAShapeLayer()
+        rectangleShape.path = rectangle.cgPath
+        rectangleShape.fillColor = color.cgColor
+        mainScreenContentView.layer.addSublayer(rectangleShape)
+        
+        let firstOval = UIBezierPath(ovalIn: CGRect(x: -45.0, y: -65.0, width: 465.0, height: 339.0))
+        let firstShape = CAShapeLayer()
+        firstShape.path = firstOval.cgPath
+        firstShape.fillColor = color.cgColor
+        mainScreenContentView.layer.addSublayer(firstShape)
+        
+        let secondOval = UIBezierPath(ovalIn: CGRect(x: -90.0, y: -136.0, width: 468.62, height: 349.65))
+        let secondShape = CAShapeLayer()
+        secondShape.path = secondOval.cgPath
+        secondShape.fillColor = (color == UIColor.systemBlue) ? UIColor(red: 0.102, green: 0.529, blue: 1.000, alpha: 1.000).cgColor : UIColor(red: 0.988, green: 0.321, blue: 0.116, alpha: 1.000).cgColor
+        mainScreenContentView.layer.addSublayer(secondShape)
+        
+        let thirdOval = UIBezierPath(ovalIn: CGRect(x: -118.0, y: -136.0, width: 468.62, height: 349.65))
+        let thirdShape = CAShapeLayer()
+        thirdShape.path = thirdOval.cgPath
+        thirdShape.fillColor = (color == UIColor.systemBlue) ? UIColor(red: 0.200, green: 0.584, blue: 1.000, alpha: 1.000).cgColor : UIColor(red: 0.988, green: 0.410, blue: 0.124, alpha: 1.000).cgColor
+        mainScreenContentView.layer.addSublayer(thirdShape)
     }
     
     private func configureRateCalculationView() {
@@ -295,7 +331,7 @@ class MainViewController: UIViewController {
         currencyOperationSegmentedControl.leadingAnchor.constraint(equalTo: rateCalculationView.leadingAnchor, constant: 16.0).isActive = true
         currencyOperationSegmentedControl.trailingAnchor.constraint(equalTo: rateCalculationView.trailingAnchor, constant: -16.0).isActive = true
         currencyOperationSegmentedControl.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-        currencyOperationSegmentedControl.insertSegment(withTitle: "Midpoint", at: 0, animated: false)
+        currencyOperationSegmentedControl.insertSegment(withTitle: "Middle", at: 0, animated: false)
         currencyOperationSegmentedControl.insertSegment(withTitle: "Sell", at: 1, animated: false)
         currencyOperationSegmentedControl.insertSegment(withTitle: "Buy", at: 2, animated: false)
         currencyOperationSegmentedControl.isEnabledForSegment(at: 0)
@@ -457,7 +493,7 @@ class MainViewController: UIViewController {
         lastYearRateButton.trailingAnchor.constraint(equalTo: mainScreenContentView.trailingAnchor, constant: -16.0).isActive = true
         lastYearRateButton.heightAnchor.constraint(equalToConstant: 56.0).isActive = true
         var confiquration = UIButton.Configuration.plain()
-        confiquration.title = "National Bank Exchange Rate"
+        confiquration.title = "Last Year Exchange Rates"
         confiquration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
             outgoing.font = UIFont(name: "Lato-Bold", size: 18)
@@ -541,7 +577,11 @@ class MainViewController: UIViewController {
         
         switch currencyOperationSegmentedControl.selectedSegmentIndex {
         case 0:
-            currencyViewController = CurrencyViewController(sections: middleRateCurrencySections)
+            if lastYearRateButton.layer.borderColor == UIColor.systemBlue.cgColor {
+                currencyViewController = CurrencyViewController(sections: middleRateCurrencySections)
+            } else {
+                currencyViewController = CurrencyViewController(sections: middleRateCurrencySectionsHistorical)
+            }
         default:
             currencyViewController = CurrencyViewController(sections: buySellRateCurrencySections)
         }
@@ -614,7 +654,7 @@ class MainViewController: UIViewController {
         currencyHTTPClient.fetchMiddleRateHistorical { [weak self] result in
             switch result {
             case .success(let middleRateHistoricalModel):
-                for currency in middleRateHistoricalModel.currencyRates {
+                for currency in middleRateHistoricalModel.currencies {
                     do {
                         try self?.realm.write {
                             let data = MiddleRateCurrencyHistoricalData(currencyCode: currency.currencyCode,
@@ -661,6 +701,17 @@ class MainViewController: UIViewController {
                 print("2")
             }
         }
+        
+        let animator = UIViewPropertyAnimator(duration: 2, dampingRatio: 1) {
+            self.inHistoricalRatesViewMode = !self.inHistoricalRatesViewMode
+            self.lastYearRateButton.layer.borderColor = UIColor.systemRed.cgColor
+            self.lastYearRateButton.configuration?.title = "Latest Exchange Rates"
+            self.lastYearRateButton.configuration?.baseForegroundColor = .systemRed
+            self.addCurrencyButton.configuration?.baseForegroundColor = .systemRed
+            self.currencyOperationSegmentedControl.selectedSegmentTintColor = .systemRed
+            self.configureBackgroundShapes(color: .systemRed)
+        }
+        animator.startAnimation()
     }
     
     
