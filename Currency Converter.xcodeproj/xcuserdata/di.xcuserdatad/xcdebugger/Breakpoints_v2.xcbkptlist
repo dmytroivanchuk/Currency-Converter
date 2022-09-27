@@ -14,8 +14,8 @@
             filePath = "Currency Converter/Controllers/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "721"
-            endingLineNumber = "721"
+            startingLineNumber = "724"
+            endingLineNumber = "724"
             landmarkName = "convertCurrency(_:amount:)"
             landmarkType = "7">
             <Locations>

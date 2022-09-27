@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
         configureMainScreenScrollView()
         confiqureMainScreenContentView()
 //        confiqureBackgroundImageView()
-        configureBackgroundShapes(color: .systemBlue)
+        configureBackgroundShapes()
         configureRateCalculationView()
         configureCurrencyOperationSegmentedControl()
         configureCurrencyRatesStackView()
@@ -279,29 +279,29 @@ class MainViewController: UIViewController {
 //        backgroundImageView.image = UIImage(named: "header")
 //    }
     
-    private func configureBackgroundShapes(color: UIColor) {
+    private func configureBackgroundShapes() {
         let rectangle = UIBezierPath(rect: CGRect(x: -118.0, y: -295.5, width: 537.0, height: 400.0))
         let rectangleShape = CAShapeLayer()
         rectangleShape.path = rectangle.cgPath
-        rectangleShape.fillColor = color.cgColor
+        rectangleShape.fillColor = UIColor.systemBlue.cgColor
         mainScreenContentView.layer.addSublayer(rectangleShape)
         
         let firstOval = UIBezierPath(ovalIn: CGRect(x: -45.0, y: -65.0, width: 465.0, height: 339.0))
         let firstShape = CAShapeLayer()
         firstShape.path = firstOval.cgPath
-        firstShape.fillColor = color.cgColor
+        firstShape.fillColor = UIColor.systemBlue.cgColor
         mainScreenContentView.layer.addSublayer(firstShape)
         
         let secondOval = UIBezierPath(ovalIn: CGRect(x: -90.0, y: -136.0, width: 468.62, height: 349.65))
         let secondShape = CAShapeLayer()
         secondShape.path = secondOval.cgPath
-        secondShape.fillColor = (color == UIColor.systemBlue) ? UIColor(red: 0.102, green: 0.529, blue: 1.000, alpha: 1.000).cgColor : UIColor(red: 0.988, green: 0.321, blue: 0.116, alpha: 1.000).cgColor
+        secondShape.fillColor = UIColor(red: 0.102, green: 0.529, blue: 1.000, alpha: 1.000).cgColor
         mainScreenContentView.layer.addSublayer(secondShape)
         
         let thirdOval = UIBezierPath(ovalIn: CGRect(x: -118.0, y: -136.0, width: 468.62, height: 349.65))
         let thirdShape = CAShapeLayer()
         thirdShape.path = thirdOval.cgPath
-        thirdShape.fillColor = (color == UIColor.systemBlue) ? UIColor(red: 0.200, green: 0.584, blue: 1.000, alpha: 1.000).cgColor : UIColor(red: 0.988, green: 0.410, blue: 0.124, alpha: 1.000).cgColor
+        thirdShape.fillColor = UIColor(red: 0.200, green: 0.584, blue: 1.000, alpha: 1.000).cgColor
         mainScreenContentView.layer.addSublayer(thirdShape)
     }
     
@@ -577,11 +577,7 @@ class MainViewController: UIViewController {
         
         switch currencyOperationSegmentedControl.selectedSegmentIndex {
         case 0:
-            if lastYearRateButton.layer.borderColor == UIColor.systemBlue.cgColor {
-                currencyViewController = CurrencyViewController(sections: middleRateCurrencySections)
-            } else {
-                currencyViewController = CurrencyViewController(sections: middleRateCurrencySectionsHistorical)
-            }
+            currencyViewController = inHistoricalRatesViewMode ? CurrencyViewController(sections: middleRateCurrencySectionsHistorical) : CurrencyViewController(sections: middleRateCurrencySections)
         default:
             currencyViewController = CurrencyViewController(sections: buySellRateCurrencySections)
         }
@@ -702,16 +698,23 @@ class MainViewController: UIViewController {
             }
         }
         
-        let animator = UIViewPropertyAnimator(duration: 2, dampingRatio: 1) {
-            self.inHistoricalRatesViewMode = !self.inHistoricalRatesViewMode
-            self.lastYearRateButton.layer.borderColor = UIColor.systemRed.cgColor
-            self.lastYearRateButton.configuration?.title = "Latest Exchange Rates"
-            self.lastYearRateButton.configuration?.baseForegroundColor = .systemRed
-            self.addCurrencyButton.configuration?.baseForegroundColor = .systemRed
-            self.currencyOperationSegmentedControl.selectedSegmentTintColor = .systemRed
-            self.configureBackgroundShapes(color: .systemRed)
+        self.inHistoricalRatesViewMode = !self.inHistoricalRatesViewMode
+        
+        if inHistoricalRatesViewMode {
+            self.lastYearRateButton.configuration?.title = "Back to Latest Exchange Rates"
+            self.currencyOperationSegmentedControl.removeSegment(at: 2, animated: true)
+            self.currencyOperationSegmentedControl.removeSegment(at: 1, animated: true)
+            if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
+                self.convertCurrency(baseCurrency, amount: Double(amount))
+            }
+        } else {
+            self.lastYearRateButton.configuration?.title = "Last Year Exchange Rates"
+            currencyOperationSegmentedControl.insertSegment(withTitle: "Sell", at: 1, animated: true)
+            currencyOperationSegmentedControl.insertSegment(withTitle: "Buy", at: 2, animated: true)
+            if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
+                self.convertCurrency(baseCurrency, amount: Double(amount))
+            }
         }
-        animator.startAnimation()
     }
     
     
@@ -739,11 +742,21 @@ class MainViewController: UIViewController {
                         }
                     }
                 default:
-                    if let additionalMidpointCurrency = middleRateCurrencies?.first(where: { $0.currencyCode == button.configuration?.title }),
-                       let baseMidpointCurrency = middleRateCurrencies?.first(where: { $0.currencyCode == currency }) {
-                        if let additional = additionalMidpointCurrency.middleRate, let base = baseMidpointCurrency.middleRate {
-                            let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
-                            neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
+                    if inHistoricalRatesViewMode {
+                        if let additionalMiddleCurrency = middleRateCurrenciesHistorical?.first(where: { $0.currencyCode == button.configuration?.title }),
+                           let baseMiddleCurrency = middleRateCurrenciesHistorical?.first(where: { $0.currencyCode == currency }) {
+                            if let additional = additionalMiddleCurrency.middleRate, let base = baseMiddleCurrency.middleRate {
+                                let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
+                                neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
+                            }
+                        }
+                    } else {
+                        if let additionalMiddleCurrency = middleRateCurrencies?.first(where: { $0.currencyCode == button.configuration?.title }),
+                           let baseMiddleCurrency = middleRateCurrencies?.first(where: { $0.currencyCode == currency }) {
+                            if let additional = additionalMiddleCurrency.middleRate, let base = baseMiddleCurrency.middleRate {
+                                let convertedAmount = currencyConverter.convertCurrency(additionalCurrencyRate: additional, baseCurrencyRate: base, amount: amount)
+                                neededForRateCalculation[button]?.text = String(format: "%.2f", convertedAmount)
+                            }
                         }
                     }
                 }
