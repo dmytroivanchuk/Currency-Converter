@@ -449,6 +449,7 @@ class MainViewController: UIViewController {
         confiquration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         confiquration.baseForegroundColor = .systemGray
         shareButton.configuration = confiquration
+        shareButton.addTarget(self, action: #selector(shareButtonPressed(_:)), for: .touchUpInside)
     }
     
     private func configureUpdateInfoLabel() {
@@ -764,6 +765,26 @@ class MainViewController: UIViewController {
             }
         }
     }
+    
+    
+    //MARK: - Handle User's Rate Information Sharing
+    
+    @objc private func shareButtonPressed(_ sender: UIButton) {
+        let bounds = rateCalculationView.bounds
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+        rateCalculationView.drawHierarchy(in: bounds, afterScreenUpdates: false)
+        if let img = UIGraphicsGetImageFromCurrentImageContext() {
+            UIGraphicsEndImageContext()
+            let shareSheetVC = UIActivityViewController(activityItems: [img], applicationActivities: nil)
+
+            // iPad support
+            shareSheetVC.popoverPresentationController?.sourceView = sender
+            shareSheetVC.popoverPresentationController?.sourceRect = sender.frame
+
+            present(shareSheetVC, animated: true)
+        }
+    }
+
 }
 
 
