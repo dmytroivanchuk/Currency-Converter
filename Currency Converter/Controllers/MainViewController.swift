@@ -48,7 +48,6 @@ class MainViewController: UIViewController {
         configureNavigationItem()
         configureMainScreenScrollView()
         confiqureMainScreenContentView()
-//        confiqureBackgroundImageView()
         configureBackgroundShapes()
         configureRateCalculationView()
         configureCurrencyOperationSegmentedControl()
@@ -105,16 +104,12 @@ class MainViewController: UIViewController {
                 self?.middleRateCurrencyDate = self?.realm.objects(MiddleRateCurrencyDateData.self)
                 self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDate?.first?.dateUpdated)
                 
-            case .failure(let error):
-                switch error {
-                case .dataRefreshError:
-                    self?.middleRateCurrencies = self?.realm.objects(MiddleRateCurrencyData.self)
-                    self?.middleRateCurrencySections = self?.realm.objects(MiddleRateCurrencySectionData.self)
-                    self?.middleRateCurrencyDate = self?.realm.objects(MiddleRateCurrencyDateData.self)
-                    self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDate?.first?.dateUpdated)
-                default:
-                    print(1)
-                }
+            case .failure(_):
+                self?.middleRateCurrencies = self?.realm.objects(MiddleRateCurrencyData.self)
+                self?.middleRateCurrencySections = self?.realm.objects(MiddleRateCurrencySectionData.self)
+                self?.middleRateCurrencyDate = self?.realm.objects(MiddleRateCurrencyDateData.self)
+                self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDate?.first?.dateUpdated)
+                print("1")
             }
         }
     }
@@ -187,6 +182,10 @@ class MainViewController: UIViewController {
                         self?.setTitleToUpdateInfoLabel(dateUpdated: self?.buySellRateCurrencyDate?.first?.dateUpdated)
                         
                     case .failure(_):
+                        self?.buySellRateCurrencies = self?.realm.objects(BuySellRateCurrencyData.self)
+                        self?.buySellRateCurrencySections = self?.realm.objects(BuySellRateCurrencySectionData.self)
+                        self?.buySellRateCurrencyDate = self?.realm.objects(BuySellRateCurrencyDateData.self)
+                        self?.setTitleToUpdateInfoLabel(dateUpdated: self?.buySellRateCurrencyDate?.first?.dateUpdated)
                         print("3")
                     }
                 }
@@ -268,16 +267,6 @@ class MainViewController: UIViewController {
         mainScreenScrollView.addSubview(mainScreenContentView)
         mainScreenContentView.frame.size = mainScreenScrollView.frame.size
     }
-    
-//    private func confiqureBackgroundImageView() {
-//        mainScreenContentView.addSubview(backgroundImageView)
-//        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-//        backgroundImageView.topAnchor.constraint(equalTo: mainScreenContentView.topAnchor).isActive = true
-//        backgroundImageView.leadingAnchor.constraint(equalTo: mainScreenContentView.leadingAnchor).isActive = true
-//        backgroundImageView.trailingAnchor.constraint(equalTo: mainScreenContentView.trailingAnchor).isActive = true
-//        backgroundImageView.heightAnchor.constraint(equalToConstant: 274.0).isActive = true
-//        backgroundImageView.image = UIImage(named: "header")
-//    }
     
     private func configureBackgroundShapes() {
         let rectangle = UIBezierPath(rect: CGRect(x: -118.0, y: -295.5, width: 537.0, height: 400.0))
@@ -506,6 +495,7 @@ class MainViewController: UIViewController {
         lastYearRateButton.addTarget(self, action: #selector(didTapLastYearRateButton(_:)), for: .touchUpInside)
     }
     
+    
     //MARK: - Handle Adding Additional Currencies
     
     private func configureAdditionalCurrencyStackView(currency: String) {
@@ -647,60 +637,66 @@ class MainViewController: UIViewController {
     //MARK: - Handle Fetching Historical Rate
 
     @objc private func didTapLastYearRateButton(_ sender: UIButton) {
-        currencyHTTPClient.fetchMiddleRateHistorical { [weak self] result in
-            switch result {
-            case .success(let middleRateHistoricalModel):
-                for currency in middleRateHistoricalModel.currencies {
-                    do {
-                        try self?.realm.write {
-                            let data = MiddleRateCurrencyHistoricalData(currencyCode: currency.currencyCode,
-                                                              baseCurrency: currency.baseCurrency,
-                                                              middleRate: currency.middleRate,
-                                                              buyRate: nil,
-                                                              sellRate: nil,
-                                                              currencyString: currency.currencyString)
-                            self?.realm.add(data)
-                        }
-                    } catch {
-                        fatalError("Error saving realm data.")
-                    }
-                }
-                self?.middleRateCurrenciesHistorical = self?.realm.objects(MiddleRateCurrencyHistoricalData.self)
-                
-                for currencySection in middleRateHistoricalModel.currencySections {
-                    do {
-                        try self?.realm.write {
-                            let data = MiddleRateCurrencySectionHistoricalData(title: currencySection.title)
-                            for currencyString in currencySection.currencyStrings {
-                                data.currencyStrings.append(currencyString)
-                            }
-                            self?.realm.add(data)
-                        }
-                    } catch {
-                        fatalError("Error saving realm data.")
-                    }
-                }
-                self?.middleRateCurrencySectionsHistorical = self?.realm.objects(MiddleRateCurrencySectionHistoricalData.self)
-                
-                do {
-                    try self?.realm.write {
-                        let data = MiddleRateCurrencyDateHistoricalData(dateUpdated: middleRateHistoricalModel.dateUpdated)
-                        self?.realm.add(data)
-                    }
-                } catch {
-                    fatalError("Error saving realm data.")
-                }
-                self?.middleRateCurrencyDateHistorical = self?.realm.objects(MiddleRateCurrencyDateHistoricalData.self)
-                self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDateHistorical?.first?.dateUpdated)
-                
-            case .failure(_):
-                print("2")
-            }
-        }
-        
         self.inHistoricalRatesViewMode = !self.inHistoricalRatesViewMode
         
         if inHistoricalRatesViewMode {
+            
+            currencyHTTPClient.fetchMiddleRateHistorical { [weak self] result in
+                switch result {
+                case .success(let middleRateHistoricalModel):
+                    for currency in middleRateHistoricalModel.currencies {
+                        do {
+                            try self?.realm.write {
+                                let data = MiddleRateCurrencyHistoricalData(currencyCode: currency.currencyCode,
+                                                                  baseCurrency: currency.baseCurrency,
+                                                                  middleRate: currency.middleRate,
+                                                                  buyRate: nil,
+                                                                  sellRate: nil,
+                                                                  currencyString: currency.currencyString)
+                                self?.realm.add(data)
+                            }
+                        } catch {
+                            fatalError("Error saving realm data.")
+                        }
+                    }
+                    self?.middleRateCurrenciesHistorical = self?.realm.objects(MiddleRateCurrencyHistoricalData.self)
+                    
+                    for currencySection in middleRateHistoricalModel.currencySections {
+                        do {
+                            try self?.realm.write {
+                                let data = MiddleRateCurrencySectionHistoricalData(title: currencySection.title)
+                                for currencyString in currencySection.currencyStrings {
+                                    data.currencyStrings.append(currencyString)
+                                }
+                                self?.realm.add(data)
+                            }
+                        } catch {
+                            fatalError("Error saving realm data.")
+                        }
+                    }
+                    self?.middleRateCurrencySectionsHistorical = self?.realm.objects(MiddleRateCurrencySectionHistoricalData.self)
+                    
+                    do {
+                        try self?.realm.write {
+                            let data = MiddleRateCurrencyDateHistoricalData(dateUpdated: middleRateHistoricalModel.dateUpdated)
+                            self?.realm.add(data)
+                        }
+                    } catch {
+                        fatalError("Error saving realm data.")
+                    }
+                    self?.middleRateCurrencyDateHistorical = self?.realm.objects(MiddleRateCurrencyDateHistoricalData.self)
+                    self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDateHistorical?.first?.dateUpdated)
+                    
+                case .failure(_):
+                    print(2)
+                    print(self?.realm.objects(MiddleRateCurrencyDateHistoricalData.self))
+                    self?.middleRateCurrenciesHistorical = self?.realm.objects(MiddleRateCurrencyHistoricalData.self)
+                    self?.middleRateCurrencySectionsHistorical = self?.realm.objects(MiddleRateCurrencySectionHistoricalData.self)
+                    self?.middleRateCurrencyDateHistorical = self?.realm.objects(MiddleRateCurrencyDateHistoricalData.self)
+                    self?.setTitleToUpdateInfoLabel(dateUpdated: self?.middleRateCurrencyDateHistorical?.first?.dateUpdated)
+                }
+            }
+            
             self.lastYearRateButton.configuration?.title = "Back to Latest Exchange Rates"
             self.currencyOperationSegmentedControl.removeSegment(at: 2, animated: true)
             self.currencyOperationSegmentedControl.removeSegment(at: 1, animated: true)
@@ -711,6 +707,7 @@ class MainViewController: UIViewController {
             self.lastYearRateButton.configuration?.title = "Last Year Exchange Rates"
             currencyOperationSegmentedControl.insertSegment(withTitle: "Sell", at: 1, animated: true)
             currencyOperationSegmentedControl.insertSegment(withTitle: "Buy", at: 2, animated: true)
+            self.setTitleToUpdateInfoLabel(dateUpdated: self.middleRateCurrencyDate?.first?.dateUpdated)
             if let baseCurrency = self.baseCurrencyButton.configuration?.title, let amount = self.baseCurrencyTextField.text {
                 self.convertCurrency(baseCurrency, amount: Double(amount))
             }
