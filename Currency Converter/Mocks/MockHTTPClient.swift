@@ -27,10 +27,17 @@ class MockHTTPClient: HTTPClientProtocol {
         }
         
         let calendar = Calendar.current
-        let currentHour = calendar.dateComponents([.hour], from: Date()).hour
-        let lastRefreshHour = calendar.dateComponents([.hour], from: lastRefreshDate).hour
+        if key == .mockMiddleRateHistoricalLastRefreshDate {
+            let currentDay = calendar.dateComponents([.day], from: Date()).day
+            let lastRefreshDay = calendar.dateComponents([.day], from: lastRefreshDate).day
 
-        return currentHour != lastRefreshHour ? true : false
+            return currentDay != lastRefreshDay ? true : false
+        } else {
+            let currentHour = calendar.dateComponents([.hour], from: Date()).hour
+            let lastRefreshHour = calendar.dateComponents([.hour], from: lastRefreshDate).hour
+
+            return currentHour != lastRefreshHour ? true : false
+        }
     }
     
     
