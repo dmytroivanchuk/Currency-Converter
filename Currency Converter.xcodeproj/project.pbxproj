@@ -42,6 +42,18 @@
 		02F9AD2B28D791E200925E5A /* CurrencyConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */; };
 		02F9AD2E28D8749000925E5A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 02F9AD2D28D8749000925E5A /* Realm */; };
 		02F9AD3028D8749000925E5A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 02F9AD2F28D8749000925E5A /* RealmSwift */; };
+		02FA4A6228EDE9DA002C77BD /* MainVC+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A6128EDE9DA002C77BD /* MainVC+Layout.swift */; };
+		02FA4A6428EECA1C002C77BD /* MainVC+ChangeSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A6328EECA1C002C77BD /* MainVC+ChangeSegment.swift */; };
+		02FA4A6628EECBA9002C77BD /* MainVC+ManageCurrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A6528EECBA9002C77BD /* MainVC+ManageCurrencies.swift */; };
+		02FA4A6A28EED099002C77BD /* MainVC+FetchHistoricalRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A6928EED099002C77BD /* MainVC+FetchHistoricalRate.swift */; };
+		02FA4A6C28EED146002C77BD /* MainVC+CalculateRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A6B28EED146002C77BD /* MainVC+CalculateRate.swift */; };
+		02FA4A6E28EED260002C77BD /* MainVC+ShareRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A6D28EED260002C77BD /* MainVC+ShareRate.swift */; };
+		02FA4A7028EED3D2002C77BD /* MainVC+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A6F28EED3D2002C77BD /* MainVC+UITextFieldDelegate.swift */; };
+		02FA4A7228EED472002C77BD /* MainVC+HandleTaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A7128EED472002C77BD /* MainVC+HandleTaps.swift */; };
+		02FA4A7428EED56D002C77BD /* CurrencyVC+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A7328EED56D002C77BD /* CurrencyVC+Layout.swift */; };
+		02FA4A7628EED657002C77BD /* CurrencyVC+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A7528EED657002C77BD /* CurrencyVC+UITableViewDelegate.swift */; };
+		02FA4A7828EED787002C77BD /* CurrencyVC+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A7728EED787002C77BD /* CurrencyVC+UITableViewDataSource.swift */; };
+		02FA4A7A28EED7D8002C77BD /* CurrencyVC+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA4A7928EED7D8002C77BD /* CurrencyVC+UISearchBarDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +91,18 @@
 		02F9AD2628D4E1B500925E5A /* CurrencySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySection.swift; sourceTree = "<group>"; };
 		02F9AD2828D503C400925E5A /* MiddleRateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleRateModel.swift; sourceTree = "<group>"; };
 		02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverter.swift; sourceTree = "<group>"; };
+		02FA4A6128EDE9DA002C77BD /* MainVC+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+Layout.swift"; sourceTree = "<group>"; };
+		02FA4A6328EECA1C002C77BD /* MainVC+ChangeSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ChangeSegment.swift"; sourceTree = "<group>"; };
+		02FA4A6528EECBA9002C77BD /* MainVC+ManageCurrencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ManageCurrencies.swift"; sourceTree = "<group>"; };
+		02FA4A6928EED099002C77BD /* MainVC+FetchHistoricalRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+FetchHistoricalRate.swift"; sourceTree = "<group>"; };
+		02FA4A6B28EED146002C77BD /* MainVC+CalculateRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+CalculateRate.swift"; sourceTree = "<group>"; };
+		02FA4A6D28EED260002C77BD /* MainVC+ShareRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ShareRate.swift"; sourceTree = "<group>"; };
+		02FA4A6F28EED3D2002C77BD /* MainVC+UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
+		02FA4A7128EED472002C77BD /* MainVC+HandleTaps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+HandleTaps.swift"; sourceTree = "<group>"; };
+		02FA4A7328EED56D002C77BD /* CurrencyVC+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyVC+Layout.swift"; sourceTree = "<group>"; };
+		02FA4A7528EED657002C77BD /* CurrencyVC+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyVC+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		02FA4A7728EED787002C77BD /* CurrencyVC+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyVC+UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		02FA4A7928EED7D8002C77BD /* CurrencyVC+UISearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyVC+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +132,8 @@
 		0226677928C89C9A00A3F800 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0226679228CBAC5C00A3F800 /* MainViewController.swift */,
-				0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */,
+				02FA4A5D28EDE93F002C77BD /* MainViewController */,
+				02FA4A5F28EDE983002C77BD /* CurrencyViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -128,20 +152,8 @@
 			children = (
 				0226678328C8AB2C00A3F800 /* HTTPClient.swift */,
 				02F9AD2A28D791E200925E5A /* CurrencyConverter.swift */,
-				02F9AD2428D4D73200925E5A /* Currency.swift */,
-				02F9AD2628D4E1B500925E5A /* CurrencySection.swift */,
-				02F9AD2828D503C400925E5A /* MiddleRateModel.swift */,
-				023F8DC928DC61B1000F8A6D /* MiddleRateHistoricalModel.swift */,
-				02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */,
-				024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */,
-				023F8DB928D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift */,
-				023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */,
-				023F8DC328DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift */,
-				023F8DC728DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift */,
-				023F8DC528DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift */,
-				023F8DBB28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift */,
-				023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */,
-				023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */,
+				02FA4A6828EECF6A002C77BD /* Data Decoding */,
+				02FA4A6728EECE9E002C77BD /* Data Storing */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +209,78 @@
 				02D7CE8F28C5E003000309AF /* Info.plist */,
 			);
 			path = "Currency Converter";
+			sourceTree = "<group>";
+		};
+		02FA4A5D28EDE93F002C77BD /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0226679228CBAC5C00A3F800 /* MainViewController.swift */,
+				02FA4A5E28EDE95C002C77BD /* Extensions */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		02FA4A5E28EDE95C002C77BD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				02FA4A6128EDE9DA002C77BD /* MainVC+Layout.swift */,
+				02FA4A6328EECA1C002C77BD /* MainVC+ChangeSegment.swift */,
+				02FA4A6528EECBA9002C77BD /* MainVC+ManageCurrencies.swift */,
+				02FA4A6928EED099002C77BD /* MainVC+FetchHistoricalRate.swift */,
+				02FA4A6B28EED146002C77BD /* MainVC+CalculateRate.swift */,
+				02FA4A6D28EED260002C77BD /* MainVC+ShareRate.swift */,
+				02FA4A7128EED472002C77BD /* MainVC+HandleTaps.swift */,
+				02FA4A6F28EED3D2002C77BD /* MainVC+UITextFieldDelegate.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		02FA4A5F28EDE983002C77BD /* CurrencyViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0259294B28CCAD6A00F326BE /* CurrencyViewController.swift */,
+				02FA4A6028EDE998002C77BD /* Extensions */,
+			);
+			path = CurrencyViewController;
+			sourceTree = "<group>";
+		};
+		02FA4A6028EDE998002C77BD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				02FA4A7328EED56D002C77BD /* CurrencyVC+Layout.swift */,
+				02FA4A7528EED657002C77BD /* CurrencyVC+UITableViewDelegate.swift */,
+				02FA4A7728EED787002C77BD /* CurrencyVC+UITableViewDataSource.swift */,
+				02FA4A7928EED7D8002C77BD /* CurrencyVC+UISearchBarDelegate.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		02FA4A6728EECE9E002C77BD /* Data Storing */ = {
+			isa = PBXGroup;
+			children = (
+				024B126328D8C5D300E06819 /* MiddleRateCurrencyData.swift */,
+				023F8DB928D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift */,
+				023F8DBF28DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift */,
+				023F8DC328DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift */,
+				023F8DC728DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift */,
+				023F8DC528DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift */,
+				023F8DBB28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift */,
+				023F8DC128DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift */,
+				023F8DBD28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift */,
+			);
+			path = "Data Storing";
+			sourceTree = "<group>";
+		};
+		02FA4A6828EECF6A002C77BD /* Data Decoding */ = {
+			isa = PBXGroup;
+			children = (
+				02F9AD2428D4D73200925E5A /* Currency.swift */,
+				02F9AD2628D4E1B500925E5A /* CurrencySection.swift */,
+				02F9AD2828D503C400925E5A /* MiddleRateModel.swift */,
+				023F8DC928DC61B1000F8A6D /* MiddleRateHistoricalModel.swift */,
+				02F9AD1F28D49C6100925E5A /* BuySellRateModel.swift */,
+			);
+			path = "Data Decoding";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,26 +371,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				02F9AD2B28D791E200925E5A /* CurrencyConverter.swift in Sources */,
+				02FA4A7628EED657002C77BD /* CurrencyVC+UITableViewDelegate.swift in Sources */,
 				0259294C28CCAD6A00F326BE /* CurrencyViewController.swift in Sources */,
+				02FA4A6A28EED099002C77BD /* MainVC+FetchHistoricalRate.swift in Sources */,
+				02FA4A7228EED472002C77BD /* MainVC+HandleTaps.swift in Sources */,
 				02F9AD2728D4E1B500925E5A /* CurrencySection.swift in Sources */,
 				023F8DC228DA5EAC000F8A6D /* BuySellRateCurrencyDateData.swift in Sources */,
 				023F8DCA28DC61B1000F8A6D /* MiddleRateHistoricalModel.swift in Sources */,
 				02F9AD2028D49C6100925E5A /* BuySellRateModel.swift in Sources */,
 				024B126428D8C5D300E06819 /* MiddleRateCurrencyData.swift in Sources */,
+				02FA4A7A28EED7D8002C77BD /* CurrencyVC+UISearchBarDelegate.swift in Sources */,
 				023F8DBC28D8CDC9000F8A6D /* BuySellRateCurrencyData.swift in Sources */,
 				023F8DC028DA5DFD000F8A6D /* MiddleRateCurrencyDateData.swift in Sources */,
+				02FA4A7028EED3D2002C77BD /* MainVC+UITextFieldDelegate.swift in Sources */,
 				023F8DC428DC5F54000F8A6D /* MiddleRateCurrencyHistoricalData.swift in Sources */,
+				02FA4A6228EDE9DA002C77BD /* MainVC+Layout.swift in Sources */,
+				02FA4A6C28EED146002C77BD /* MainVC+CalculateRate.swift in Sources */,
+				02FA4A7828EED787002C77BD /* CurrencyVC+UITableViewDataSource.swift in Sources */,
 				023F8DBE28D8D29A000F8A6D /* BuySellRateCurrencySectionData.swift in Sources */,
 				0226679328CBAC5C00A3F800 /* MainViewController.swift in Sources */,
+				02FA4A7428EED56D002C77BD /* CurrencyVC+Layout.swift in Sources */,
 				02F9AD2528D4D73200925E5A /* Currency.swift in Sources */,
 				0226678428C8AB2C00A3F800 /* HTTPClient.swift in Sources */,
+				02FA4A6628EECBA9002C77BD /* MainVC+ManageCurrencies.swift in Sources */,
 				023F8DC628DC6035000F8A6D /* MiddleRateCurrencyDateHistoricalData.swift in Sources */,
+				02FA4A6E28EED260002C77BD /* MainVC+ShareRate.swift in Sources */,
 				0226678B28C8BD0100A3F800 /* MockHTTPClient.swift in Sources */,
 				02D7CE8228C5E002000309AF /* AppDelegate.swift in Sources */,
 				023F8DC828DC60B8000F8A6D /* MiddleRateCurrencySectionHistoricalData.swift in Sources */,
 				023F8DBA28D8CABF000F8A6D /* MiddleRateCurrencySectionData.swift in Sources */,
 				0226678F28C8BFB700A3F800 /* HTTPClientFactory.swift in Sources */,
 				02D7CE8428C5E002000309AF /* SceneDelegate.swift in Sources */,
+				02FA4A6428EECA1C002C77BD /* MainVC+ChangeSegment.swift in Sources */,
 				02F9AD2928D503C500925E5A /* MiddleRateModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
